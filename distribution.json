@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "discord": {
+    "clientId": "0",
+    "smallImageText": "Legends of Medieval",
+    "smallImageKey": "lom"
+  },
+  "rss": null,
+  "servers": [
+    {
+      "id": "Legends_of_Medieval",
+      "name": "Legends of Medieval",
+      "description": "Legends of Medieval v0.2 development channel",
+      "icon": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/launcher/icon.png",
+      "version": "0.2.0-dev",
+      "address": "localhost:25565",
+      "minecraftVersion": "1.20.1",
+      "mainServer": true,
+      "autoconnect": false,
+      "javaOptions": {
+        "supported": ">=17 <18",
+        "suggestedMajor": 17,
+        "ram": {
+          "recommended": 6144,
+          "minimum": 4096
+        }
+      },
+      "modules": []
+    }
+  ]
+}
