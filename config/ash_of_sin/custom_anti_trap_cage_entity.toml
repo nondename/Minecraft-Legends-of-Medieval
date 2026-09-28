@@ -1,0 +1,10 @@
+#Anti On
+#Enable Anti-Trap_Cage Entity
+"Anti On" = true
+#Anti-Trap_Cage Entity
+"Anti-Trap_Cage Entity" = ["minecraft:wither", "minecraft:ender_dragon"]
+#Check Distance
+#Radius of Anti-Trap_cage entity. Minimum is 1, maximum is 64.(Default is 8 block)
+#Range: 1 ~ 64
+"Check Distance" = 8
+

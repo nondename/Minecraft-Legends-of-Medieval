@@ -1,0 +1,11 @@
+#Anti On
+#Enable Anti-Effect Entity
+"Anti On" = true
+#Anti-Effect Entity
+"Anti-Effect Entity" = ["minecraft:wither", "minecraft:ender_dragon", "minecraft:warden", "cataclysm:ender_guardian", "cataclysm:ignis", "cataclysm:netherite_monstrosity", "cataclysm:the_harbinger", "cataclysm:the_leviathan", "cataclysm:ancient_ancient_remnant", "cataclysm:ancient_remnant", "cataclysm:maledictus", "bosses_of_mass_destruction:lich", "bosses_of_mass_destruction:obsidilith", "bosses_of_mass_destruction:gauntlet", "bosses_of_mass_destruction:void_blossom", "aquamirae:captain_cornelia", "irons_spellbooks:dead_king", "graveyard:lich", "eeeabsmobs:nameless_guardian", "eeeabsmobs:corpse_warlock", "eeeabsmobs:guling_sentinel_heavy", "mowziesmobs:ferrous_wroughtnaut", "mowziesmobs:frostmaw", "mowziesmobs:umvuthi", "mowziesmobs:naga", "iceandfire:ice_dragon", "iceandfire:fire_dragon", "iceandfire:lightning_dragon", "iceandfire:dread_knight", "iceandfire:dread_lich", "dummmmmmy:target_dummy"]
+#Anti-Effect ID
+"Anti-Effect ID" = ["aquamirae:health_decrease"]
+#Heal On
+#Enable Restored to the maximum health.
+"Heal On" = true
+

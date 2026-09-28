@@ -1,0 +1,46 @@
+﻿# User worlds and personal data
+saves/
+journeymap/
+schematics/
+
+# User-specific settings
+options.txt
+optionsof.txt
+servers.dat
+servers.dat_old
+
+# User/session state
+usercache.json
+usernamecache.json
+supportercache.json
+patchouli_data.json
+TrashSlotSaveState.json
+
+# Runtime-generated
+logs/
+crash-reports/
+modernfix/
+natives/
+server-resource-packs/
+data/fabricDefaultResourcePacks.dat
+
+# TLauncher-generated metadata
+TLauncherAdditional.json
+
+# Temporary / OS
+*.log
+*.tmp
+*.bak
+*.old
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Generated caches / per-user state
+mods/.connector/
+config/jei/world/
+config/voicechat/player-volumes.properties
+config/voicechat/username-cache.json
