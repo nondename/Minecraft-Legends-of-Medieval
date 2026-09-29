@@ -4,7 +4,6 @@ journeymap/
 schematics/
 
 # User-specific settings
-options.txt
 optionsof.txt
 servers.dat
 servers.dat_old
