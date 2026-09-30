@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -545,19 +545,9 @@
           "name": "Antique Atlas",
           "type": "ForgeMod",
           "artifact": {
-            "size": 1490594,
+            "size": 1498804,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Antique%20Atlas-1.20.1-8.0.1-Forge.jar",
-            "MD5": "ae749ba03a6615c7db26606ce6dde159"
-          }
-        },
-        {
-          "id": "hunternif.mc.impl.atlas:antiqueatlas:8.0.1@jar",
-          "name": "Antique Atlas",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 1511054,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Antique%20Atlas%201.20.1.jar",
-            "MD5": "72b950f4ca391a38b226d4edc4a76101"
+            "MD5": "5ba145dac6c2df699d8002236b8fb4be"
           }
         },
         {
@@ -8136,5 +8126,8 @@
         }
       ]
     }
+  ],
+  "delete": [
+    "mods/Antique Atlas 1.20.1.jar"
   ]
 }
