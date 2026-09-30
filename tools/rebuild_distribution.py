@@ -86,6 +86,7 @@ class Stats:
         self.md5_fixed: list[str] = []
         self.url_fixed: list[str] = []
         self.paths: list[str] = []
+        self.file_paths: list[str] = []
         self._cache: dict[str, tuple[int, str]] = {}
 
     def digest(self, path: str) -> tuple[int, str]:
@@ -136,6 +137,8 @@ def sync_node(node, tracked: set[str], stats: Stats):
                         node["name"] = new_name
 
             stats.paths.append(path)
+            if node.get("type") == "File":
+                stats.file_paths.append(path)
             size, md5 = stats.digest(path)
             expected_url = raw_url(path)
 
@@ -172,12 +175,24 @@ def server_modules(data: dict) -> list:
     return modules
 
 
-def restore_missing_resourcepacks(data: dict, tracked: set[str], stats: Stats) -> None:
+def managed_payload_roots(file_paths: list[str]) -> set[str]:
+    return {p.split("/", 1)[0] for p in file_paths if "/" in p}
+
+
+def restore_missing_payload(data: dict, tracked: set[str], stats: Stats) -> None:
     represented = set(stats.paths)
+    roots = managed_payload_roots(stats.file_paths)
+    ignored_prefixes = (".github/", "tools/", "repo/")
+
     missing = sorted(
         p for p in tracked
-        if p.startswith("resourcepacks/") and p not in represented
+        if p not in represented
+        and p not in NON_PAYLOAD_FILES
+        and not p.startswith(ignored_prefixes)
+        and "/" in p
+        and p.split("/", 1)[0] in roots
     )
+
     modules = server_modules(data)
     for path in missing:
         size, md5 = stats.digest(path)
@@ -194,20 +209,19 @@ def restore_missing_resourcepacks(data: dict, tracked: set[str], stats: Stats) -
             },
         })
         stats.paths.append(path)
+        stats.file_paths.append(path)
         stats.added.append(path)
 
 
-def audit_unrepresented(tracked: set[str], represented: set[str]) -> list[str]:
-    managed_dirs = {p.split("/", 1)[0] for p in represented if "/" in p}
-    managed_top_files = {p for p in represented if "/" not in p}
-    ignored_prefixes = (".github/", "tools/")
+def audit_unrepresented(tracked: set[str], represented: set[str], file_paths: list[str]) -> list[str]:
+    roots = managed_payload_roots(file_paths)
+    ignored_prefixes = (".github/", "tools/", "repo/")
 
     candidates = []
     for path in tracked:
         if path in NON_PAYLOAD_FILES or path.startswith(ignored_prefixes):
             continue
-        root = path.split("/", 1)[0]
-        if root in managed_dirs or path in managed_top_files:
+        if "/" in path and path.split("/", 1)[0] in roots:
             candidates.append(path)
     return sorted(set(candidates) - represented)
 
@@ -234,12 +248,15 @@ def main() -> int:
     if synced is None:
         raise RuntimeError("manifest root was unexpectedly removed")
 
-    restore_missing_resourcepacks(synced, tracked, stats)
+    # Restore every tracked pack file under roots already managed by File modules,
+    # not only resourcepacks. This prevents committed configs/mods/scripts/etc. from
+    # silently disappearing from distribution.json.
+    restore_missing_payload(synced, tracked, stats)
 
     represented = set(stats.paths)
     counts = Counter(stats.paths)
     duplicates = sorted(path for path, count in counts.items() if count > 1)
-    unrepresented = audit_unrepresented(tracked, represented)
+    unrepresented = audit_unrepresented(tracked, represented, stats.file_paths)
 
     print("=== distribution.json audit ===")
     print(f"tracked repository files: {len(tracked)}")
@@ -247,12 +264,12 @@ def main() -> int:
     print(f"valid repo-backed artifacts after cleanup/additions: {len(stats.paths)}")
     print_group("stale manifest entries removed", stats.stale_removed)
     print_group("encoded paths canonicalized", stats.path_fixed)
-    print_group("missing resource packs restored", stats.added)
+    print_group("missing payload files restored", stats.added)
     print_group("size corrections", stats.size_fixed)
     print_group("MD5 corrections", stats.md5_fixed)
     print_group("URL corrections", stats.url_fixed)
     print_group("duplicate represented paths", duplicates)
-    print_group("tracked files under managed roots not represented", unrepresented)
+    print_group("tracked files under managed payload roots not represented", unrepresented)
 
     changed = bool(
         stats.stale_removed
@@ -275,6 +292,9 @@ def main() -> int:
     if duplicates:
         print("ERROR: duplicate payload paths remain in manifest", file=sys.stderr)
         return 2
+    if unrepresented:
+        print("ERROR: tracked payload files remain absent from manifest", file=sys.stderr)
+        return 3
     if not args.write and changed:
         print("ERROR: distribution.json is out of sync; run with --write", file=sys.stderr)
         return 1
