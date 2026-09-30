@@ -4,6 +4,7 @@ import hashlib
 import json
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 from urllib.parse import quote, unquote, urlparse
 
@@ -72,6 +73,8 @@ class Stats:
     def __init__(self) -> None:
         self.repo_artifacts = 0
         self.stale_removed: list[str] = []
+        self.path_fixed: list[str] = []
+        self.added: list[str] = []
         self.size_fixed: list[str] = []
         self.md5_fixed: list[str] = []
         self.url_fixed: list[str] = []
@@ -82,6 +85,15 @@ class Stats:
         if path not in self._cache:
             self._cache[path] = blob_digest(path)
         return self._cache[path]
+
+
+def canonical_tracked_path(path: str, tracked: set[str]) -> str | None:
+    if path in tracked:
+        return path
+    decoded = unquote(path)
+    if decoded in tracked:
+        return decoded
+    return None
 
 
 def sync_node(node, tracked: set[str], stats: Stats):
@@ -98,12 +110,23 @@ def sync_node(node, tracked: set[str], stats: Stats):
 
     artifact = node.get("artifact")
     if isinstance(artifact, dict):
-        path = path_from_artifact(artifact)
-        if path is not None:
+        original_path = path_from_artifact(artifact)
+        if original_path is not None:
             stats.repo_artifacts += 1
-            if path not in tracked:
-                stats.stale_removed.append(path)
+            path = canonical_tracked_path(original_path, tracked)
+            if path is None:
+                stats.stale_removed.append(original_path)
                 return None
+
+            if path != original_path:
+                stats.path_fixed.append(f"{original_path} -> {path}")
+                if node.get("type") == "File":
+                    old_name = original_path.rsplit("/", 1)[-1]
+                    new_name = path.rsplit("/", 1)[-1]
+                    if node.get("id") == old_name:
+                        node["id"] = new_name
+                    if node.get("name") == old_name:
+                        node["name"] = new_name
 
             stats.paths.append(path)
             size, md5 = stats.digest(path)
@@ -130,6 +153,41 @@ def sync_node(node, tracked: set[str], stats: Stats):
         else:
             node[key] = synced
     return node
+
+
+def server_modules(data: dict) -> list:
+    servers = data.get("servers")
+    if not isinstance(servers, list) or not servers or not isinstance(servers[0], dict):
+        raise RuntimeError("distribution.json has no primary server")
+    modules = servers[0].get("modules")
+    if not isinstance(modules, list):
+        raise RuntimeError("distribution.json primary server has no modules list")
+    return modules
+
+
+def restore_missing_resourcepacks(data: dict, tracked: set[str], stats: Stats) -> None:
+    represented = set(stats.paths)
+    missing = sorted(
+        p for p in tracked
+        if p.startswith("resourcepacks/") and p not in represented
+    )
+    modules = server_modules(data)
+    for path in missing:
+        size, md5 = stats.digest(path)
+        name = path.rsplit("/", 1)[-1]
+        modules.append({
+            "id": name,
+            "name": name,
+            "type": "File",
+            "artifact": {
+                "size": size,
+                "url": raw_url(path),
+                "MD5": md5,
+                "path": path,
+            },
+        })
+        stats.paths.append(path)
+        stats.added.append(path)
 
 
 def audit_unrepresented(tracked: set[str], represented: set[str]) -> list[str]:
@@ -170,22 +228,34 @@ def main() -> int:
     if synced is None:
         raise RuntimeError("manifest root was unexpectedly removed")
 
+    restore_missing_resourcepacks(synced, tracked, stats)
+
     represented = set(stats.paths)
-    duplicates = sorted({p for p in represented if stats.paths.count(p) > 1})
+    counts = Counter(stats.paths)
+    duplicates = sorted(path for path, count in counts.items() if count > 1)
     unrepresented = audit_unrepresented(tracked, represented)
 
     print("=== distribution.json audit ===")
     print(f"tracked repository files: {len(tracked)}")
     print(f"repo-backed manifest artifacts checked: {stats.repo_artifacts}")
-    print(f"valid repo-backed artifacts after cleanup: {len(stats.paths)}")
+    print(f"valid repo-backed artifacts after cleanup/additions: {len(stats.paths)}")
     print_group("stale manifest entries removed", stats.stale_removed)
+    print_group("encoded paths canonicalized", stats.path_fixed)
+    print_group("missing resource packs restored", stats.added)
     print_group("size corrections", stats.size_fixed)
     print_group("MD5 corrections", stats.md5_fixed)
     print_group("URL corrections", stats.url_fixed)
     print_group("duplicate represented paths", duplicates)
     print_group("tracked files under managed roots not represented", unrepresented)
 
-    changed = bool(stats.stale_removed or stats.size_fixed or stats.md5_fixed or stats.url_fixed)
+    changed = bool(
+        stats.stale_removed
+        or stats.path_fixed
+        or stats.added
+        or stats.size_fixed
+        or stats.md5_fixed
+        or stats.url_fixed
+    )
     if args.write and changed:
         MANIFEST.write_text(
             json.dumps(synced, ensure_ascii=False, indent=2) + "\n",
