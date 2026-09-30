@@ -8034,6 +8034,105 @@
             "MD5": "2cb1f2472146bec12ccafe8e20359b07",
             "path": "shaderpacks/ComplementaryUnbound_r5.8.1.zip"
           }
+        },
+        {
+          "id": "3D Ores - MC 1.20.1 - 1.0.1.zip",
+          "name": "3D Ores - MC 1.20.1 - 1.0.1.zip",
+          "type": "File",
+          "artifact": {
+            "size": 213743,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/3D%20Ores%20-%20MC%201.20.1%20-%201.0.1.zip",
+            "MD5": "43eb611632aec7c8f301e8858cf7f279",
+            "path": "resourcepacks/3D Ores - MC 1.20.1 - 1.0.1.zip"
+          }
+        },
+        {
+          "id": "Dramatic Skys Demo 1.5.3.36.6.zip",
+          "name": "Dramatic Skys Demo 1.5.3.36.6.zip",
+          "type": "File",
+          "artifact": {
+            "size": 13922352,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/Dramatic%20Skys%20Demo%201.5.3.36.6.zip",
+            "MD5": "512163992bde819916e3791f9aa8a034",
+            "path": "resourcepacks/Dramatic Skys Demo 1.5.3.36.6.zip"
+          }
+        },
+        {
+          "id": "Enchantment Glows 1.9 1.20.x.zip",
+          "name": "Enchantment Glows 1.9 1.20.x.zip",
+          "type": "File",
+          "artifact": {
+            "size": 279844,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/Enchantment%20Glows%201.9%201.20.x.zip",
+            "MD5": "d62c76a2c1eb921fd8274d7ecc477701",
+            "path": "resourcepacks/Enchantment Glows 1.9 1.20.x.zip"
+          }
+        },
+        {
+          "id": "Excalibur_Create-6 Addon_Forge_v2.32.zip",
+          "name": "Excalibur_Create-6 Addon_Forge_v2.32.zip",
+          "type": "File",
+          "artifact": {
+            "size": 2004606,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/Excalibur_Create-6%20Addon_Forge_v2.32.zip",
+            "MD5": "cc3fca7e1e25ad5dc95b419f4a71e86d",
+            "path": "resourcepacks/Excalibur_Create-6 Addon_Forge_v2.32.zip"
+          }
+        },
+        {
+          "id": "FA+All_Extensions-v1.8.1.zip",
+          "name": "FA+All_Extensions-v1.8.1.zip",
+          "type": "File",
+          "artifact": {
+            "size": 428473,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/FA%2BAll_Extensions-v1.8.1.zip",
+            "MD5": "ad6ff2e53818d6ba16d01592aafcc7c3",
+            "path": "resourcepacks/FA+All_Extensions-v1.8.1.zip"
+          }
+        },
+        {
+          "id": "FA+Player-v1.1.zip",
+          "name": "FA+Player-v1.1.zip",
+          "type": "File",
+          "artifact": {
+            "size": 110428,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/FA%2BPlayer-v1.1.zip",
+            "MD5": "35bf4d27cf6e5f04659374e0a6eb4b8d",
+            "path": "resourcepacks/FA+Player-v1.1.zip"
+          }
+        },
+        {
+          "id": "[1.6] Enhanced Boss Bars.zip",
+          "name": "[1.6] Enhanced Boss Bars.zip",
+          "type": "File",
+          "artifact": {
+            "size": 105348,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/%5B1.6%5D%20Enhanced%20Boss%20Bars.zip",
+            "MD5": "9e1ae767d8f50920ac166b25f191fb59",
+            "path": "resourcepacks/[1.6] Enhanced Boss Bars.zip"
+          }
+        },
+        {
+          "id": "§8§lDarkmode §f§lColourful Containers§8.zip",
+          "name": "§8§lDarkmode §f§lColourful Containers§8.zip",
+          "type": "File",
+          "artifact": {
+            "size": 780242,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/%C2%A78%C2%A7lDarkmode%20%C2%A7f%C2%A7lColourful%20Containers%C2%A78.zip",
+            "MD5": "b79a80cbb50145ab3788e20ac678a366",
+            "path": "resourcepacks/§8§lDarkmode §f§lColourful Containers§8.zip"
+          }
+        },
+        {
+          "id": "§eTorches§8-§eReimagined§0_§8[v1.8]§0.zip",
+          "name": "§eTorches§8-§eReimagined§0_§8[v1.8]§0.zip",
+          "type": "File",
+          "artifact": {
+            "size": 183716,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/%C2%A7eTorches%C2%A78-%C2%A7eReimagined%C2%A70_%C2%A78%5Bv1.8%5D%C2%A70.zip",
+            "MD5": "be904f5398cdee9ee897ad32bd2f5cbd",
+            "path": "resourcepacks/§eTorches§8-§eReimagined§0_§8[v1.8]§0.zip"
+          }
         }
       ]
     }
