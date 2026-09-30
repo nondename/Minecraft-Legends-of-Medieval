@@ -1,0 +1,153 @@
+name: Sync LoM Antique Atlas
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - .github/workflows/sync-antique-atlas.yml
+  workflow_dispatch:
+    inputs:
+      antique_atlas_ref:
+        description: AntiqueAtlas commit/branch/tag to build
+        required: false
+        default: d5a846b7488c6770d91722bce5a16531a36b79f3
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-antique-atlas-dev
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      ANTIQUE_ATLAS_REF: ${{ github.event.inputs.antique_atlas_ref || 'd5a846b7488c6770d91722bce5a16531a36b79f3' }}
+      TARGET_JAR: mods/Antique Atlas-1.20.1-8.0.1-Forge.jar
+      RECIPE_FIX_JAR: mods/Antique Atlas 1.20.1.jar
+
+    steps:
+      - name: Checkout LoM dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Build tested Antique Atlas fork
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/nondename/AntiqueAtlas.git /tmp/AntiqueAtlas
+          cd /tmp/AntiqueAtlas
+          git checkout "$ANTIQUE_ATLAS_REF"
+          chmod +x gradlew
+          ./gradlew build --stacktrace
+          test -f 'build/libs/Antique Atlas-1.20.1-8.0.1-Forge.jar'
+
+      - name: Replace Antique Atlas and remove recipe-fix shim
+        id: pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp '/tmp/AntiqueAtlas/build/libs/Antique Atlas-1.20.1-8.0.1-Forge.jar' "$TARGET_JAR"
+          rm -f "$RECIPE_FIX_JAR"
+
+          if git diff --quiet -- "$TARGET_JAR" "$RECIPE_FIX_JAR"; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'Antique Atlas payload is already current.'
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump pack update version and register stale-file deletion
+        if: steps.pack.outputs.changed == 'true'
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          path = Path('distribution.json')
+          data = json.loads(path.read_text(encoding='utf-8-sig'))
+
+          parts = str(data.get('version', '1.0.0')).split('.')
+          if len(parts) != 3 or not all(part.isdigit() for part in parts):
+              raise SystemExit(f"Unsupported distribution version: {data.get('version')!r}")
+          major, minor, patch = map(int, parts)
+          data['version'] = f'{major}.{minor}.{patch + 1}'
+
+          stale = 'mods/Antique Atlas 1.20.1.jar'
+          deletes = [value for value in data.get('delete', []) if isinstance(value, str)]
+          if stale not in deletes:
+              deletes.append(stale)
+          data['delete'] = deletes
+
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+          print(f"LoM distribution version -> {data['version']}")
+
+      - name: Synchronize distribution manifest
+        if: steps.pack.outputs.changed == 'true'
+        run: |
+          python3 tools/rebuild_distribution.py --write
+          python3 tools/rebuild_distribution.py
+
+      - name: Verify Antique Atlas manifest state
+        if: steps.pack.outputs.changed == 'true'
+        shell: python
+        run: |
+          import hashlib
+          import json
+          from pathlib import Path
+
+          jar_path = Path('mods/Antique Atlas-1.20.1-8.0.1-Forge.jar')
+          old_path = Path('mods/Antique Atlas 1.20.1.jar')
+          data = json.loads(Path('distribution.json').read_text(encoding='utf-8'))
+          modules = data['servers'][0]['modules']
+
+          hits = []
+          def walk(node):
+              if isinstance(node, list):
+                  for value in node: walk(value)
+              elif isinstance(node, dict):
+                  artifact = node.get('artifact')
+                  if isinstance(artifact, dict) and 'Antique Atlas' in str(artifact.get('url', '')):
+                      hits.append((node, artifact))
+                  for key, value in node.items():
+                      if key != 'artifact': walk(value)
+          walk(modules)
+
+          if old_path.exists():
+              raise SystemExit('Standalone Antique Atlas Recipe Fix still exists')
+          if len(hits) != 1:
+              raise SystemExit(f'Expected exactly one Antique Atlas manifest artifact, got {len(hits)}')
+
+          _, artifact = hits[0]
+          expected_md5 = hashlib.md5(jar_path.read_bytes()).hexdigest()
+          if artifact.get('MD5') != expected_md5:
+              raise SystemExit(f"Antique Atlas MD5 mismatch: {artifact.get('MD5')} != {expected_md5}")
+          if artifact.get('size') != jar_path.stat().st_size:
+              raise SystemExit('Antique Atlas size mismatch')
+          if 'mods/Antique Atlas 1.20.1.jar' not in data.get('delete', []):
+              raise SystemExit('Old Recipe Fix is not registered for launcher deletion')
+
+          print(f"Antique Atlas OK size={jar_path.stat().st_size} md5={expected_md5}")
+          print(f"distribution version={data['version']}")
+
+      - name: Commit synchronized pack update
+        if: steps.pack.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$TARGET_JAR" "$RECIPE_FIX_JAR" distribution.json
+          git commit -m 'mods: integrate fixed Antique Atlas build'
+          git push origin HEAD:dev
