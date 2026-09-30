@@ -41,6 +41,9 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Set up Gradle cache
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Build tested Antique Atlas fork
         shell: bash
         run: |
@@ -66,6 +69,16 @@ jobs:
           else
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Commit payload so manifest hashes exact Git blobs
+        if: steps.pack.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- "$TARGET_JAR" "$RECIPE_FIX_JAR"
+          git commit -m 'mods: integrate fixed Antique Atlas build'
 
       - name: Bump pack update version and register stale-file deletion
         if: steps.pack.outputs.changed == 'true'
@@ -105,6 +118,7 @@ jobs:
           import hashlib
           import json
           from pathlib import Path
+          from urllib.parse import unquote
 
           jar_path = Path('mods/Antique Atlas-1.20.1-8.0.1-Forge.jar')
           old_path = Path('mods/Antique Atlas 1.20.1.jar')
@@ -112,13 +126,16 @@ jobs:
           modules = data['servers'][0]['modules']
 
           hits = []
+          expected_suffix = '/mods/Antique Atlas-1.20.1-8.0.1-Forge.jar'
           def walk(node):
               if isinstance(node, list):
                   for value in node: walk(value)
               elif isinstance(node, dict):
                   artifact = node.get('artifact')
-                  if isinstance(artifact, dict) and 'Antique Atlas' in str(artifact.get('url', '')):
-                      hits.append((node, artifact))
+                  if isinstance(artifact, dict):
+                      url = unquote(str(artifact.get('url', '')))
+                      if url.endswith(expected_suffix):
+                          hits.append((node, artifact))
                   for key, value in node.items():
                       if key != 'artifact': walk(value)
           walk(modules)
@@ -140,13 +157,11 @@ jobs:
           print(f"Antique Atlas OK size={jar_path.stat().st_size} md5={expected_md5}")
           print(f"distribution version={data['version']}")
 
-      - name: Commit synchronized pack update
+      - name: Commit manifest and push pack update
         if: steps.pack.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- "$TARGET_JAR" "$RECIPE_FIX_JAR" distribution.json
-          git commit -m 'mods: integrate fixed Antique Atlas build'
+          git add distribution.json
+          git commit -m 'build: publish Antique Atlas pack update'
           git push origin HEAD:dev
