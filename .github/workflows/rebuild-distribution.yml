@@ -1,0 +1,40 @@
+name: Rebuild distribution manifest
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Rebuild distribution.json from committed Git blobs
+        run: python3 tools/rebuild_distribution.py --write
+
+      - name: Commit synchronized manifest
+        shell: bash
+        run: |
+          if git diff --quiet -- distribution.json; then
+            echo "distribution.json is already synchronized"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add distribution.json
+          git commit -m "build: synchronize distribution manifest"
+          git push origin HEAD:dev
+
+      - name: Validate synchronized manifest
+        run: python3 tools/rebuild_distribution.py
