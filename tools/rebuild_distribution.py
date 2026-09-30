@@ -12,6 +12,13 @@ REPO = "nondename/Minecraft-Legends-of-Medieval"
 BRANCH = "dev"
 RAW_PREFIX = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/"
 MANIFEST = Path("distribution.json")
+NON_PAYLOAD_FILES = {
+    "distribution.json",
+    ".gitignore",
+    ".gitattributes",
+    # XMCL installs Forge itself from the official Maven; this cached installer is not pack payload.
+    "repo/net/minecraftforge/forge/1.20.1-47.4.22/forge-1.20.1-47.4.22-installer.jar",
+}
 
 
 def git(*args: str) -> bytes:
@@ -194,11 +201,10 @@ def audit_unrepresented(tracked: set[str], represented: set[str]) -> list[str]:
     managed_dirs = {p.split("/", 1)[0] for p in represented if "/" in p}
     managed_top_files = {p for p in represented if "/" not in p}
     ignored_prefixes = (".github/", "tools/")
-    ignored_files = {"distribution.json", ".gitignore", ".gitattributes"}
 
     candidates = []
     for path in tracked:
-        if path in ignored_files or path.startswith(ignored_prefixes):
+        if path in NON_PAYLOAD_FILES or path.startswith(ignored_prefixes):
             continue
         root = path.split("/", 1)[0]
         if root in managed_dirs or path in managed_top_files:
