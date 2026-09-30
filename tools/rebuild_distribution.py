@@ -17,7 +17,7 @@ NON_PAYLOAD_FILES = {
     ".gitignore",
     ".gitattributes",
     # XMCL installs Forge itself from the official Maven; this cached installer is not pack payload.
-    "repo/net/minecraftforge/forge/1.20.1-47.4.22/forge-1.20.1-47.4.22-installer.jar",
+    "repo/lib/net/minecraftforge/forge/1.20.1-47.4.22/forge-1.20.1-47.4.22-installer.jar",
 }
 
 
