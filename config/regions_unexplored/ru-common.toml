@@ -2,7 +2,7 @@
 #Config for Regions Unexplored!
 [region_configs]
 	#Enable this before changing the other region config files. If disabled, RU will use builtin biome placement.
-	toggle_custom_regions = false
+	toggle_custom_regions = true
 	#Sets Terrablender region weight for the primary region.
 	#Range: 0 ~ 2147483646
 	primary_region_weight = 11
