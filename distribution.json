@@ -1,5 +1,5 @@
 {
-  "version": "1.0.11",
+  "version": "1.0.12",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8158,6 +8158,28 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lom-skin-loader-0.1.2.jar",
             "MD5": "59c3797693bff3b9824983541ac1607f",
             "path": "mods/lom-skin-loader-0.1.2.jar"
+          }
+        },
+        {
+          "id": "BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar",
+          "name": "BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar",
+          "type": "File",
+          "artifact": {
+            "size": 7297246,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/BuildCraft-Community-Edition-8.0.22%2B1.20.1%2Bforge.jar",
+            "MD5": "1f179fc229737564c0818865d5d0dacb",
+            "path": "mods/BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar"
+          }
+        },
+        {
+          "id": "buildcraftlocalizations-1.0.3+1.20.1-forge.jar",
+          "name": "buildcraftlocalizations-1.0.3+1.20.1-forge.jar",
+          "type": "File",
+          "artifact": {
+            "size": 1969418,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/buildcraftlocalizations-1.0.3%2B1.20.1-forge.jar",
+            "MD5": "319f3f76ec9562622c9060270f52fa4a",
+            "path": "mods/buildcraftlocalizations-1.0.3+1.20.1-forge.jar"
           }
         }
       ]
