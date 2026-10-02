@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8129,9 +8129,9 @@
           "name": "ru-common.toml",
           "type": "File",
           "artifact": {
-            "size": 3523,
+            "size": 3524,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/regions_unexplored/ru-common.toml",
-            "MD5": "5875a8761cfe0203c488f9eb82887715",
+            "MD5": "4e7d6bfd2d9e54c19f1626bfe07788ce",
             "path": "config/regions_unexplored/ru-common.toml"
           }
         },
