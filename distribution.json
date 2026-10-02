@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8122,6 +8122,50 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/%C2%A7eTorches%C2%A78-%C2%A7eReimagined%C2%A70_%C2%A78%5Bv1.8%5D%C2%A70.zip",
             "MD5": "be904f5398cdee9ee897ad32bd2f5cbd",
             "path": "resourcepacks/§eTorches§8-§eReimagined§0_§8[v1.8]§0.zip"
+          }
+        },
+        {
+          "id": "ru-common.toml",
+          "name": "ru-common.toml",
+          "type": "File",
+          "artifact": {
+            "size": 3524,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/regions_unexplored/ru-common.toml",
+            "MD5": "4e7d6bfd2d9e54c19f1626bfe07788ce",
+            "path": "config/regions_unexplored/ru-common.toml"
+          }
+        },
+        {
+          "id": "ru-primary-region.toml",
+          "name": "ru-primary-region.toml",
+          "type": "File",
+          "artifact": {
+            "size": 13516,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/regions_unexplored/ru-primary-region.toml",
+            "MD5": "0f10352e1a65ab9db2b2368837cdae2f",
+            "path": "config/regions_unexplored/ru-primary-region.toml"
+          }
+        },
+        {
+          "id": "ru-secondary-region.toml",
+          "name": "ru-secondary-region.toml",
+          "type": "File",
+          "artifact": {
+            "size": 13451,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/regions_unexplored/ru-secondary-region.toml",
+            "MD5": "bf3800ebf51c941cbee0ccb89aba05dd",
+            "path": "config/regions_unexplored/ru-secondary-region.toml"
+          }
+        },
+        {
+          "id": "RegionsUnexploredForge-0.5.6+1.20.1.jar",
+          "name": "RegionsUnexploredForge-0.5.6+1.20.1.jar",
+          "type": "File",
+          "artifact": {
+            "size": 5726781,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/RegionsUnexploredForge-0.5.6%2B1.20.1.jar",
+            "MD5": "82c3073f606044e7b56d432d324ca480",
+            "path": "mods/RegionsUnexploredForge-0.5.6+1.20.1.jar"
           }
         }
       ]
