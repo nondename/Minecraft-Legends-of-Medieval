@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - dev
+    paths-ignore:
+      - 'distribution.json'
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,6 @@ concurrency:
 
 jobs:
   rebuild:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout dev
