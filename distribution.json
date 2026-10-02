@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.6",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -738,16 +738,6 @@
             "size": 1884205,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/BEB-Forge-1.20.1-6.0.0.jar",
             "MD5": "6e67d3d36f6bce94ca27d7ea235453d9"
-          }
-        },
-        {
-          "id": "com.betterchunkloading:betterchunkloading:1.20.1-5.4@jar",
-          "name": "Betterchunkloading mod",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 55968,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/betterchunkloading-1.20.1-5.4.jar",
-            "MD5": "0ec0d97c0f52b5b13762b293189487af"
           }
         },
         {
