@@ -1,5 +1,5 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8143,9 +8143,9 @@
           "name": "InkSpellBooks-LoM-Addon-1.0.0.jar",
           "type": "File",
           "artifact": {
-            "size": 15011,
+            "size": 15009,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/InkSpellBooks-LoM-Addon-1.0.0.jar",
-            "MD5": "cdc10c2fb94f0cdeb6bf1e753b19554d",
+            "MD5": "b2a02b14b372b91ed68142f425f710ee",
             "path": "mods/InkSpellBooks-LoM-Addon-1.0.0.jar"
           }
         }
