@@ -1,5 +1,5 @@
 {
-  "version": "1.0.10",
+  "version": "1.0.11",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8150,14 +8150,14 @@
           }
         },
         {
-          "id": "lom-skin-loader-0.1.1.jar",
-          "name": "lom-skin-loader-0.1.1.jar",
+          "id": "lom-skin-loader-0.1.2.jar",
+          "name": "lom-skin-loader-0.1.2.jar",
           "type": "File",
           "artifact": {
-            "size": 10860,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lom-skin-loader-0.1.1.jar",
-            "MD5": "4f2b92a76b337d4737f6c7d657b5769a",
-            "path": "mods/lom-skin-loader-0.1.1.jar"
+            "size": 10763,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lom-skin-loader-0.1.2.jar",
+            "MD5": "59c3797693bff3b9824983541ac1607f",
+            "path": "mods/lom-skin-loader-0.1.2.jar"
           }
         }
       ]
