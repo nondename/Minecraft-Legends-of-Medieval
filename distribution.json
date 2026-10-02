@@ -1,5 +1,5 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.7",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -1501,16 +1501,6 @@
           }
         },
         {
-          "id": "net.mcreator:inkchantery:1.0.0@jar",
-          "name": "Inkchantery",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 29872,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/inkchantery-1.3.8.jar",
-            "MD5": "c73c26de2fdcf6cd5ce87e66507073ef"
-          }
-        },
-        {
           "id": "io.redspace.ironslib:irons_lib:1.20.1-2.1.0@jar",
           "name": "Iron's Lib",
           "type": "ForgeMod",
@@ -1518,16 +1508,6 @@
             "size": 428969,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/irons_lib-1.20.1-2.1.0.jar",
             "MD5": "5c73106c1323bf7fd01d5da09869444f"
-          }
-        },
-        {
-          "id": "net.mcreator.ironsrecipeadditions:irons_recipe_additions:1.0.0@jar",
-          "name": "Iron's Recipe Additions",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 16078,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/irons_recipe_additions-2.7-forge-1.20.1.jar",
-            "MD5": "fce85213d0db4c86f486ea3f8efcaa8f"
           }
         },
         {
@@ -8156,6 +8136,17 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/RegionsUnexploredForge-0.5.6%2B1.20.1.jar",
             "MD5": "82c3073f606044e7b56d432d324ca480",
             "path": "mods/RegionsUnexploredForge-0.5.6+1.20.1.jar"
+          }
+        },
+        {
+          "id": "InkSpellBooks-LoM-Addon-1.0.0.jar",
+          "name": "InkSpellBooks-LoM-Addon-1.0.0.jar",
+          "type": "File",
+          "artifact": {
+            "size": 15011,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/InkSpellBooks-LoM-Addon-1.0.0.jar",
+            "MD5": "cdc10c2fb94f0cdeb6bf1e753b19554d",
+            "path": "mods/InkSpellBooks-LoM-Addon-1.0.0.jar"
           }
         }
       ]
