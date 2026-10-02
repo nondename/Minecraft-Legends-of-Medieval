@@ -76,6 +76,16 @@ def raw_url(path: str) -> str:
     return RAW_PREFIX + quote(path, safe="/")
 
 
+def bump_patch_version(version: str) -> str:
+    parts = version.split(".")
+    if len(parts) != 3 or any(not part.isdigit() for part in parts):
+        raise RuntimeError(
+            f"distribution.version must be numeric MAJOR.MINOR.PATCH, got {version!r}"
+        )
+    major, minor, patch = (int(part) for part in parts)
+    return f"{major}.{minor}.{patch + 1}"
+
+
 class Stats:
     def __init__(self) -> None:
         self.repo_artifacts = 0
@@ -280,6 +290,12 @@ def main() -> int:
         or stats.url_fixed
     )
     if args.write and changed:
+        old_version = synced.get("version")
+        if not isinstance(old_version, str):
+            raise RuntimeError("distribution.json has no string top-level version")
+        new_version = bump_patch_version(old_version)
+        synced["version"] = new_version
+        print(f"distribution version: {old_version} -> {new_version}")
         MANIFEST.write_text(
             json.dumps(synced, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
