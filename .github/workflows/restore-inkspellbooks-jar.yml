@@ -24,7 +24,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat tools/inkspellbooks.b64.* | tr -d '\r\n ' | base64 --decode > /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar
+          cat \
+            tools/inkspellbooks.b64.00 \
+            tools/inkspellbooks.b64.01 \
+            tools/inkspellbooks.b64.02 \
+            tools/inkspellbooks.b64.03 \
+            tools/inkspellbooks.b64.04 \
+            tools/inkspellbooks.b64.05 \
+            tools/inkspellbooks.b64.06a \
+            tools/inkspellbooks.b64.06b \
+            tools/inkspellbooks.b64.06c \
+            tools/inkspellbooks.b64.07 \
+            | tr -d '\r\n ' | base64 --decode > /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar
           test "$(wc -c < /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar)" -eq 16053
           echo "baafe079351963309e2b79ec74e342d0  /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar" | md5sum -c -
           echo "99f69c21dc2f4f4793c60bca42b50877629f5e91005edc5f81f11a21b84ca9d3  /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar" | sha256sum -c -
