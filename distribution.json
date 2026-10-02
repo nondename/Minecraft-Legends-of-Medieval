@@ -1,5 +1,5 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8147,6 +8147,17 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/InkSpellBooks-LoM-Addon-1.0.0.jar",
             "MD5": "baafe079351963309e2b79ec74e342d0",
             "path": "mods/InkSpellBooks-LoM-Addon-1.0.0.jar"
+          }
+        },
+        {
+          "id": "lom-skin-loader-0.1.1.jar",
+          "name": "lom-skin-loader-0.1.1.jar",
+          "type": "File",
+          "artifact": {
+            "size": 10860,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lom-skin-loader-0.1.1.jar",
+            "MD5": "4f2b92a76b337d4737f6c7d657b5769a",
+            "path": "mods/lom-skin-loader-0.1.1.jar"
           }
         }
       ]
