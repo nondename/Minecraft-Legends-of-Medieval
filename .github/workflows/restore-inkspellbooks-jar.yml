@@ -1,0 +1,46 @@
+name: Restore verified InkSpellBooks JAR
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - '.github/workflows/restore-inkspellbooks-jar.yml'
+      - 'tools/inkspellbooks.b64.*'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Reconstruct and verify JAR
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat tools/inkspellbooks.b64.* | tr -d '\r\n ' | base64 --decode > /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar
+          test "$(wc -c < /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar)" -eq 16053
+          echo "baafe079351963309e2b79ec74e342d0  /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar" | md5sum -c -
+          echo "99f69c21dc2f4f4793c60bca42b50877629f5e91005edc5f81f11a21b84ca9d3  /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar" | sha256sum -c -
+          unzip -t /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar
+          cp /tmp/InkSpellBooks-LoM-Addon-1.0.0.jar mods/InkSpellBooks-LoM-Addon-1.0.0.jar
+
+      - name: Commit verified binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mods/InkSpellBooks-LoM-Addon-1.0.0.jar
+          if git diff --cached --quiet; then
+            echo "Verified JAR is already committed."
+            exit 0
+          fi
+          git commit -m "fix(magic): restore verified InkSpellBooks addon jar"
+          git push origin HEAD:dev
