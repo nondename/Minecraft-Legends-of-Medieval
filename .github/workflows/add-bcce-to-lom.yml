@@ -1,0 +1,68 @@
+name: Add BCCE to LoM
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - '.github/workflows/add-bcce-to-lom.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Download BuildCraft Community Edition 8.0.22
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p mods
+          curl --fail --location --retry 4 --retry-delay 2 \
+            'https://github.com/BCCE-team/BuildCraft/releases/download/8.0.22/BuildCraft-Community-Edition-8.0.22%2B1.20.1%2Bforge.jar' \
+            --output 'mods/BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar'
+
+      - name: Download reviewed Russian localization
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 4 --retry-delay 2 \
+            'https://github.com/nondename/BuildCraft-CE---Localizations/releases/download/lom-ru-1.0.3/buildcraftlocalizations-1.0.3%2B1.20.1-forge.jar' \
+            --output 'mods/buildcraftlocalizations-1.0.3+1.20.1-forge.jar'
+
+      - name: Verify exact release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' \
+            '8217ce1b26c347a77e009418f73fdcc9ea4eaf3bb0acf72ebcd9c71b7dd13feb' \
+            'mods/BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar' \
+            | sha256sum --check --strict
+          printf '%s  %s\n' \
+            'e4ea6a7d09d5280ca3848f305d594cccfcc0f1296fb8fe42af24373ff6262736' \
+            'mods/buildcraftlocalizations-1.0.3+1.20.1-forge.jar' \
+            | sha256sum --check --strict
+          unzip -t 'mods/BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar' >/dev/null
+          unzip -t 'mods/buildcraftlocalizations-1.0.3+1.20.1-forge.jar' >/dev/null
+
+      - name: Commit BCCE and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/add-bcce-to-lom.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'mods/BuildCraft-Community-Edition-8.0.22+1.20.1+forge.jar' \
+                  'mods/buildcraftlocalizations-1.0.3+1.20.1-forge.jar' \
+                  .github/workflows/add-bcce-to-lom.yml
+          git commit -m 'feat(mods): add BuildCraft CE 8.0.22 with Russian localization'
+          git pull --rebase origin dev
+          git push origin HEAD:dev
