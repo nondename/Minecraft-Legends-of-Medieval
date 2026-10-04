@@ -25,6 +25,47 @@ jobs:
           ref: dev
           fetch-depth: 0
 
+      - name: Reactivate IDAS dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          integrated_active='mods/integrated_api-1.5.1+1.20.1-forge.jar'
+          integrated_disabled="${integrated_active}.deactivation"
+          quark_active='mods/Quark-4.0-462.jar'
+          quark_disabled="${quark_active}.deactivation"
+          idas_disabled='mods/idas_forge-1.13.0+1.20.1.jar.deactivation'
+
+          if [ ! -f "$integrated_active" ]; then
+            if [ -f "$integrated_disabled" ]; then
+              mv "$integrated_disabled" "$integrated_active"
+            else
+              echo "Integrated API is missing" >&2
+              exit 1
+            fi
+          fi
+
+          if [ ! -f "$quark_active" ]; then
+            if [ -f "$quark_disabled" ]; then
+              mv "$quark_disabled" "$quark_active"
+            else
+              echo "Quark is missing" >&2
+              exit 1
+            fi
+          fi
+
+          # IDAS is pinned below, so the old disabled duplicate must not stay in the distribution.
+          rm -f "$idas_disabled"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A "$integrated_active" "$integrated_disabled" "$quark_active" "$quark_disabled" "$idas_disabled"
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(worldgen): reactivate IDAS dependencies"
+          else
+            echo "IDAS dependencies are already active"
+          fi
+
       - name: Restore pinned Regions Unexplored
         shell: bash
         run: |
