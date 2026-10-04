@@ -1,5 +1,5 @@
 {
-  "version": "1.0.17",
+  "version": "1.0.18",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -5852,17 +5852,6 @@
           }
         },
         {
-          "id": "idas.toml",
-          "name": "idas.toml",
-          "type": "File",
-          "artifact": {
-            "size": 683,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/idas.toml",
-            "MD5": "a4fc161f69509ce425202b5def8ac30a",
-            "path": "config/idas.toml"
-          }
-        },
-        {
           "id": "immediatelyfast.json",
           "name": "immediatelyfast.json",
           "type": "File",
@@ -6729,17 +6718,6 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/projectile_damage.json",
             "MD5": "1d39ffd0c9b1c06b9b803e86ba4a9bf0",
             "path": "config/projectile_damage.json"
-          }
-        },
-        {
-          "id": "quark-common.toml",
-          "name": "quark-common.toml",
-          "type": "File",
-          "artifact": {
-            "size": 80322,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/quark-common.toml",
-            "MD5": "609a2b40c478ab324365665da125b370",
-            "path": "config/quark-common.toml"
           }
         },
         {
@@ -7898,17 +7876,6 @@
           }
         },
         {
-          "id": "Quark Programmer Art.zip",
-          "name": "Quark Programmer Art.zip",
-          "type": "File",
-          "artifact": {
-            "size": 266434,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/Quark%20Programmer%20Art.zip",
-            "MD5": "372d5ab8040ea8fbf0265bf9163ff206",
-            "path": "resourcepacks/Quark Programmer Art.zip"
-          }
-        },
-        {
           "id": "[Compressed] Alternative Rain Sounds 1.20-1.20.1.zip",
           "name": "[Compressed] Alternative Rain Sounds 1.20-1.20.1.zip",
           "type": "File",
@@ -8165,6 +8132,15 @@
     }
   ],
   "delete": [
-    "mods/Antique Atlas 1.20.1.jar"
+    "mods/Antique Atlas 1.20.1.jar",
+    "mods/Quark-4.0-462.jar",
+    "mods/Quark-4.0-462.jar.deactivation",
+    "mods/idas_forge-1.13.0+1.20.1.jar",
+    "mods/idas_forge-1.13.0+1.20.1.jar.deactivation",
+    "mods/integrated_api-1.5.1+1.20.1-forge.jar",
+    "mods/integrated_api-1.5.1+1.20.1-forge.jar.deactivation",
+    "config/idas.toml",
+    "config/quark-common.toml",
+    "resourcepacks/Quark Programmer Art.zip"
   ]
 }
