@@ -25,47 +25,6 @@ jobs:
           ref: dev
           fetch-depth: 0
 
-      - name: Reactivate IDAS dependencies
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          integrated_active='mods/integrated_api-1.5.1+1.20.1-forge.jar'
-          integrated_disabled="${integrated_active}.deactivation"
-          quark_active='mods/Quark-4.0-462.jar'
-          quark_disabled="${quark_active}.deactivation"
-          idas_disabled='mods/idas_forge-1.13.0+1.20.1.jar.deactivation'
-
-          if [ ! -f "$integrated_active" ]; then
-            if [ -f "$integrated_disabled" ]; then
-              mv "$integrated_disabled" "$integrated_active"
-            else
-              echo "Integrated API is missing" >&2
-              exit 1
-            fi
-          fi
-
-          if [ ! -f "$quark_active" ]; then
-            if [ -f "$quark_disabled" ]; then
-              mv "$quark_disabled" "$quark_active"
-            else
-              echo "Quark is missing" >&2
-              exit 1
-            fi
-          fi
-
-          # IDAS is pinned below, so the old disabled duplicate must not stay in the distribution.
-          rm -f "$idas_disabled"
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A "$integrated_active" "$integrated_disabled" "$quark_active" "$quark_disabled" "$idas_disabled"
-          if ! git diff --cached --quiet; then
-            git commit -m "fix(worldgen): reactivate IDAS dependencies"
-          else
-            echo "IDAS dependencies are already active"
-          fi
-
       - name: Restore pinned Regions Unexplored
         shell: bash
         run: |
@@ -101,42 +60,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$path"
           git commit -m "feat(worldgen): restore Regions Unexplored 0.5.6"
-
-      - name: Restore pinned IDAS
-        shell: bash
-        run: |
-          set -euo pipefail
-          path='mods/idas_forge-1.13.0+1.20.1.jar'
-          if [ -f "$path" ]; then
-            echo "IDAS is already committed"
-            exit 0
-          fi
-
-          curl --fail --location --retry 4 --retry-delay 2 \
-            'https://cdn.modrinth.com/data/Z8OZShAU/versions/mgwwWo3b/idas_forge-1.13.0%2B1.20.1.jar' \
-            --output "$path"
-
-          python3 - "$path" <<'PY'
-          import sys
-          import zipfile
-
-          path = sys.argv[1]
-          with zipfile.ZipFile(path) as jar:
-              bad = jar.testzip()
-              if bad is not None:
-                  raise SystemExit(f"corrupt IDAS JAR entry: {bad}")
-              try:
-                  mods_toml = jar.read("META-INF/mods.toml").decode("utf-8", "replace")
-              except KeyError as exc:
-                  raise SystemExit("IDAS JAR has no META-INF/mods.toml") from exc
-              if "idas" not in mods_toml.lower():
-                  raise SystemExit("downloaded JAR is not IDAS")
-          PY
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$path"
-          git commit -m "feat(worldgen): restore IDAS 1.13.0"
 
       - name: Restore pinned LAN Server Properties
         shell: bash
