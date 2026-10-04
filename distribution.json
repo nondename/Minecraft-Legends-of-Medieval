@@ -1,5 +1,5 @@
 {
-  "version": "1.0.18",
+  "version": "1.0.19",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8126,6 +8126,17 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lanserverproperties-1.11.1-forge.jar",
             "MD5": "3c207f249ba20d06c1304c48bab48a17",
             "path": "mods/lanserverproperties-1.11.1-forge.jar"
+          }
+        },
+        {
+          "id": "Zeta-1.0-31.jar",
+          "name": "Zeta-1.0-31.jar",
+          "type": "File",
+          "artifact": {
+            "size": 1006518,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Zeta-1.0-31.jar",
+            "MD5": "98b72e20dacbdb4da4bd187f56ed4012",
+            "path": "mods/Zeta-1.0-31.jar"
           }
         }
       ]
