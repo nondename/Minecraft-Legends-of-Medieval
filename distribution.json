@@ -1,5 +1,5 @@
 {
-  "version": "1.0.15",
+  "version": "1.0.16",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -7688,28 +7688,6 @@
           }
         },
         {
-          "id": "idas_forge-1.13.0+1.20.1.jar.deactivation",
-          "name": "idas_forge-1.13.0+1.20.1.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 14420114,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/idas_forge-1.13.0%2B1.20.1.jar.deactivation",
-            "MD5": "dadee30157971a03210064185d8c46cb",
-            "path": "mods/idas_forge-1.13.0+1.20.1.jar.deactivation"
-          }
-        },
-        {
-          "id": "integrated_api-1.5.1+1.20.1-forge.jar.deactivation",
-          "name": "integrated_api-1.5.1+1.20.1-forge.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 683711,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/integrated_api-1.5.1%2B1.20.1-forge.jar.deactivation",
-            "MD5": "49865ff257c8931ccd8b7ac669a57c76",
-            "path": "mods/integrated_api-1.5.1+1.20.1-forge.jar.deactivation"
-          }
-        },
-        {
           "id": "journeymap-forge-1.20.1-6.0.4.jar.deactivation",
           "name": "journeymap-forge-1.20.1-6.0.4.jar.deactivation",
           "type": "File",
@@ -7762,17 +7740,6 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/mowziesmobs-1.8.2.jar.deactivation",
             "MD5": "d650da053314d7384a537db1f316d11f",
             "path": "mods/mowziesmobs-1.8.2.jar.deactivation"
-          }
-        },
-        {
-          "id": "Quark-4.0-462.jar.deactivation",
-          "name": "Quark-4.0-462.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 14935230,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Quark-4.0-462.jar.deactivation",
-            "MD5": "6eef0d0ac52df0c239cb443abc137f3d",
-            "path": "mods/Quark-4.0-462.jar.deactivation"
           }
         },
         {
@@ -8213,6 +8180,28 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/idas_forge-1.13.0%2B1.20.1.jar",
             "MD5": "dadee30157971a03210064185d8c46cb",
             "path": "mods/idas_forge-1.13.0+1.20.1.jar"
+          }
+        },
+        {
+          "id": "Quark-4.0-462.jar",
+          "name": "Quark-4.0-462.jar",
+          "type": "File",
+          "artifact": {
+            "size": 14935230,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Quark-4.0-462.jar",
+            "MD5": "6eef0d0ac52df0c239cb443abc137f3d",
+            "path": "mods/Quark-4.0-462.jar"
+          }
+        },
+        {
+          "id": "integrated_api-1.5.1+1.20.1-forge.jar",
+          "name": "integrated_api-1.5.1+1.20.1-forge.jar",
+          "type": "File",
+          "artifact": {
+            "size": 683711,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/integrated_api-1.5.1%2B1.20.1-forge.jar",
+            "MD5": "49865ff257c8931ccd8b7ac669a57c76",
+            "path": "mods/integrated_api-1.5.1+1.20.1-forge.jar"
           }
         }
       ]
