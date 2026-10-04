@@ -61,6 +61,42 @@ jobs:
           git add "$path"
           git commit -m "feat(worldgen): restore Regions Unexplored 0.5.6"
 
+      - name: Restore pinned IDAS
+        shell: bash
+        run: |
+          set -euo pipefail
+          path='mods/idas_forge-1.13.0+1.20.1.jar'
+          if [ -f "$path" ]; then
+            echo "IDAS is already committed"
+            exit 0
+          fi
+
+          curl --fail --location --retry 4 --retry-delay 2 \
+            'https://cdn.modrinth.com/data/Z8OZShAU/versions/mgwwWo3b/idas_forge-1.13.0%2B1.20.1.jar' \
+            --output "$path"
+
+          python3 - "$path" <<'PY'
+          import sys
+          import zipfile
+
+          path = sys.argv[1]
+          with zipfile.ZipFile(path) as jar:
+              bad = jar.testzip()
+              if bad is not None:
+                  raise SystemExit(f"corrupt IDAS JAR entry: {bad}")
+              try:
+                  mods_toml = jar.read("META-INF/mods.toml").decode("utf-8", "replace")
+              except KeyError as exc:
+                  raise SystemExit("IDAS JAR has no META-INF/mods.toml") from exc
+              if "idas" not in mods_toml.lower():
+                  raise SystemExit("downloaded JAR is not IDAS")
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$path"
+          git commit -m "feat(worldgen): restore IDAS 1.13.0"
+
       - name: Restore pinned LAN Server Properties
         shell: bash
         run: |
