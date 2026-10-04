@@ -1,5 +1,5 @@
 {
-  "version": "1.0.14",
+  "version": "1.0.15",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -8202,6 +8202,17 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lanserverproperties-1.11.1-forge.jar",
             "MD5": "3c207f249ba20d06c1304c48bab48a17",
             "path": "mods/lanserverproperties-1.11.1-forge.jar"
+          }
+        },
+        {
+          "id": "idas_forge-1.13.0+1.20.1.jar",
+          "name": "idas_forge-1.13.0+1.20.1.jar",
+          "type": "File",
+          "artifact": {
+            "size": 14420114,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/idas_forge-1.13.0%2B1.20.1.jar",
+            "MD5": "dadee30157971a03210064185d8c46cb",
+            "path": "mods/idas_forge-1.13.0+1.20.1.jar"
           }
         }
       ]
