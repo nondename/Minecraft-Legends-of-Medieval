@@ -61,6 +61,55 @@ jobs:
           git add "$path"
           git commit -m "feat(worldgen): restore Regions Unexplored 0.5.6"
 
+      - name: Restore pinned LAN Server Properties
+        shell: bash
+        run: |
+          set -euo pipefail
+          path='mods/lanserverproperties-1.11.1-forge.jar'
+          expected_sha256='d8e551326606b4841ee3cdeec8733d44db63f4f82e99a28af8f06ad905817f9a'
+
+          if [ -f "$path" ]; then
+            actual_sha256="$(sha256sum "$path" | awk '{print $1}')"
+            if [ "$actual_sha256" != "$expected_sha256" ]; then
+              echo "LAN Server Properties exists but has the wrong SHA-256" >&2
+              exit 1
+            fi
+            echo "LAN Server Properties is already committed and verified"
+            exit 0
+          fi
+
+          curl --fail --location --retry 4 --retry-delay 2 \
+            'https://github.com/rikka0w0/LanServerProperties/releases/download/1.11.1_1.20.1/lanserverproperties-1.11.1-forge.jar' \
+            --output "$path"
+
+          actual_sha256="$(sha256sum "$path" | awk '{print $1}')"
+          if [ "$actual_sha256" != "$expected_sha256" ]; then
+            echo "LAN Server Properties SHA-256 mismatch: $actual_sha256" >&2
+            exit 1
+          fi
+
+          python3 - "$path" <<'PY'
+          import sys
+          import zipfile
+
+          path = sys.argv[1]
+          with zipfile.ZipFile(path) as jar:
+              bad = jar.testzip()
+              if bad is not None:
+                  raise SystemExit(f"corrupt LAN Server Properties JAR entry: {bad}")
+              try:
+                  mods_toml = jar.read("META-INF/mods.toml").decode("utf-8", "replace")
+              except KeyError as exc:
+                  raise SystemExit("LAN Server Properties JAR has no META-INF/mods.toml") from exc
+              if "lanserverproperties" not in mods_toml:
+                  raise SystemExit("downloaded JAR is not LAN Server Properties")
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$path"
+          git commit -m "feat(lan): add LAN Server Properties 1.11.1"
+
       - name: Rebuild distribution.json from committed Git blobs
         run: python3 tools/rebuild_distribution.py --write
 
