@@ -66,7 +66,7 @@ jobs:
         run: |
           set -euo pipefail
           path='mods/lanserverproperties-1.11.1-forge.jar'
-          expected_sha256='d8e551326606b4841ee3cdeec8733d44db63f4f82e99a28af8f06ad905817f9a'
+          expected_sha256='dd59193804b778cf8d42284695b325d945150e4a973fb04e961fcd8b0c807b89'
 
           if [ -f "$path" ]; then
             actual_sha256="$(sha256sum "$path" | awk '{print $1}')"
