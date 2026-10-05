@@ -1,5 +1,5 @@
 {
-  "version": "1.0.19",
+  "version": "1.0.20",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -1448,16 +1448,6 @@
             "size": 7997,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/gpumemleakfix-1.20.1-1.8.jar",
             "MD5": "e5028e9da74761f26c00c546c8ebdc4d"
-          }
-        },
-        {
-          "id": "tallestegg.guardvillagers:guardvillagers:1.20.1-1.6.19@jar",
-          "name": "Guard Villagers",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 204767,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/guardvillagers-1.20.1-1.6.19.jar",
-            "MD5": "4d4bc126e59f91981627efacd54ba8c9"
           }
         },
         {
@@ -5335,28 +5325,6 @@
           }
         },
         {
-          "id": "guardvillagers-client.toml",
-          "name": "guardvillagers-client.toml",
-          "type": "File",
-          "artifact": {
-            "size": 336,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/guardvillagers-client.toml",
-            "MD5": "055f69065048a3488c00a85f254d08f5",
-            "path": "config/guardvillagers-client.toml"
-          }
-        },
-        {
-          "id": "guardvillagers-common.toml",
-          "name": "guardvillagers-common.toml",
-          "type": "File",
-          "artifact": {
-            "size": 5698,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/guardvillagers-common.toml",
-            "MD5": "24872a844440dc0692f378cfb0d182f3",
-            "path": "config/guardvillagers-common.toml"
-          }
-        },
-        {
           "id": "amphithere_biomes.json",
           "name": "amphithere_biomes.json",
           "type": "File",
@@ -8152,6 +8120,9 @@
     "mods/integrated_api-1.5.1+1.20.1-forge.jar.deactivation",
     "config/idas.toml",
     "config/quark-common.toml",
-    "resourcepacks/Quark Programmer Art.zip"
+    "resourcepacks/Quark Programmer Art.zip",
+    "mods/guardvillagers-1.20.1-1.6.19.jar",
+    "config/guardvillagers-client.toml",
+    "config/guardvillagers-common.toml"
   ]
 }
