@@ -1,5 +1,5 @@
 {
-  "version": "1.0.23",
+  "version": "1.0.24",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -4451,9 +4451,9 @@
           "name": "defaultoptions-common.toml",
           "type": "File",
           "artifact": {
-            "size": 465,
+            "size": 496,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/defaultoptions-common.toml",
-            "MD5": "c3168e8a22b376f7dba6da17096f9b7b",
+            "MD5": "a51353e9a5b05ad7556d880bed1b6754",
             "path": "config/defaultoptions-common.toml"
           }
         },
@@ -7920,6 +7920,28 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/structurize-1.20.1-1.0.818.jar",
             "MD5": "61838a2791450efb6a0c15f5d173c802",
             "path": "mods/structurize-1.20.1-1.0.818.jar"
+          }
+        },
+        {
+          "id": "ru_ru.json",
+          "name": "ru_ru.json",
+          "type": "File",
+          "artifact": {
+            "size": 9927,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/LoM%20Russian%20Localization/assets/structurize/lang/ru_ru.json",
+            "MD5": "4a1434ec3474efa960c2f0b52df5b6fb",
+            "path": "resourcepacks/LoM Russian Localization/assets/structurize/lang/ru_ru.json"
+          }
+        },
+        {
+          "id": "pack.mcmeta",
+          "name": "pack.mcmeta",
+          "type": "File",
+          "artifact": {
+            "size": 162,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/resourcepacks/LoM%20Russian%20Localization/pack.mcmeta",
+            "MD5": "d623965bd00f8d6563508021be1d7586",
+            "path": "resourcepacks/LoM Russian Localization/pack.mcmeta"
           }
         }
       ]
