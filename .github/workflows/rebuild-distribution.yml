@@ -13,11 +13,11 @@ permissions:
 
 concurrency:
   group: distribution-dev
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   rebuild:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout dev
         uses: actions/checkout@v4
