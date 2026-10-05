@@ -1,5 +1,5 @@
 {
-  "version": "1.0.22",
+  "version": "1.0.23",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -7865,6 +7865,61 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Zeta-1.0-31.jar",
             "MD5": "98b72e20dacbdb4da4bd187f56ed4012",
             "path": "mods/Zeta-1.0-31.jar"
+          }
+        },
+        {
+          "id": "blockui-1.20.1-1.0.193.jar",
+          "name": "blockui-1.20.1-1.0.193.jar",
+          "type": "File",
+          "artifact": {
+            "size": 391010,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/blockui-1.20.1-1.0.193.jar",
+            "MD5": "b8cbcddb7e1ff76483e5f7045300ce97",
+            "path": "mods/blockui-1.20.1-1.0.193.jar"
+          }
+        },
+        {
+          "id": "domum_ornamentum-1.20.1-1.0.296-universal.jar",
+          "name": "domum_ornamentum-1.20.1-1.0.296-universal.jar",
+          "type": "File",
+          "artifact": {
+            "size": 1141555,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/domum_ornamentum-1.20.1-1.0.296-universal.jar",
+            "MD5": "2a29092b7f67ac477f253c44d3d0463c",
+            "path": "mods/domum_ornamentum-1.20.1-1.0.296-universal.jar"
+          }
+        },
+        {
+          "id": "minecolonies-1.20.1-1.1.1301.jar",
+          "name": "minecolonies-1.20.1-1.1.1301.jar",
+          "type": "File",
+          "artifact": {
+            "size": 78186865,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/minecolonies-1.20.1-1.1.1301.jar",
+            "MD5": "7ca79d10d94bc99d79db9a11c03fd757",
+            "path": "mods/minecolonies-1.20.1-1.1.1301.jar"
+          }
+        },
+        {
+          "id": "multipiston-1.20-1.2.43-RELEASE.jar",
+          "name": "multipiston-1.20-1.2.43-RELEASE.jar",
+          "type": "File",
+          "artifact": {
+            "size": 38718,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/multipiston-1.20-1.2.43-RELEASE.jar",
+            "MD5": "48f2e9c30652069194b23e987a1d35ce",
+            "path": "mods/multipiston-1.20-1.2.43-RELEASE.jar"
+          }
+        },
+        {
+          "id": "structurize-1.20.1-1.0.818.jar",
+          "name": "structurize-1.20.1-1.0.818.jar",
+          "type": "File",
+          "artifact": {
+            "size": 1129459,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/structurize-1.20.1-1.0.818.jar",
+            "MD5": "61838a2791450efb6a0c15f5d173c802",
+            "path": "mods/structurize-1.20.1-1.0.818.jar"
           }
         }
       ]
