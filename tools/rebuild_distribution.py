@@ -90,6 +90,7 @@ class Stats:
     def __init__(self) -> None:
         self.repo_artifacts = 0
         self.stale_removed: list[str] = []
+        self.delete_added: list[str] = []
         self.path_fixed: list[str] = []
         self.added: list[str] = []
         self.size_fixed: list[str] = []
@@ -223,6 +224,28 @@ def restore_missing_payload(data: dict, tracked: set[str], stats: Stats) -> None
         stats.added.append(path)
 
 
+def record_stale_payload_deletions(data: dict, stats: Stats) -> None:
+    """Make removed pack payload disappear from existing client installations too."""
+    roots = managed_payload_roots(stats.file_paths)
+    delete = data.get("delete")
+    if delete is None:
+        delete = []
+        data["delete"] = delete
+    if not isinstance(delete, list) or any(not isinstance(path, str) for path in delete):
+        raise RuntimeError("distribution.delete must be a list of strings")
+
+    known = set(delete)
+    for path in stats.stale_removed:
+        if path in NON_PAYLOAD_FILES or "/" not in path:
+            continue
+        if path.split("/", 1)[0] not in roots:
+            continue
+        if path not in known:
+            delete.append(path)
+            known.add(path)
+            stats.delete_added.append(path)
+
+
 def audit_unrepresented(tracked: set[str], represented: set[str], file_paths: list[str]) -> list[str]:
     roots = managed_payload_roots(file_paths)
     ignored_prefixes = (".github/", "tools/", "repo/")
@@ -262,6 +285,9 @@ def main() -> int:
     # not only resourcepacks. This prevents committed configs/mods/scripts/etc. from
     # silently disappearing from distribution.json.
     restore_missing_payload(synced, tracked, stats)
+    # Removing a file from Git is not enough for existing installations: add stale
+    # pack payload to delete[] so the launcher physically removes it on update.
+    record_stale_payload_deletions(synced, stats)
 
     represented = set(stats.paths)
     counts = Counter(stats.paths)
@@ -273,6 +299,7 @@ def main() -> int:
     print(f"repo-backed manifest artifacts checked: {stats.repo_artifacts}")
     print(f"valid repo-backed artifacts after cleanup/additions: {len(stats.paths)}")
     print_group("stale manifest entries removed", stats.stale_removed)
+    print_group("client deletions added", stats.delete_added)
     print_group("encoded paths canonicalized", stats.path_fixed)
     print_group("missing payload files restored", stats.added)
     print_group("size corrections", stats.size_fixed)
@@ -283,6 +310,7 @@ def main() -> int:
 
     changed = bool(
         stats.stale_removed
+        or stats.delete_added
         or stats.path_fixed
         or stats.added
         or stats.size_fixed
