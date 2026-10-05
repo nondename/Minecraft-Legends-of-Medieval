@@ -1,5 +1,5 @@
 {
-  "version": "1.0.20",
+  "version": "1.0.21",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -548,26 +548,6 @@
             "size": 1498804,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Antique%20Atlas-1.20.1-8.0.1-Forge.jar",
             "MD5": "5ba145dac6c2df699d8002236b8fb4be"
-          }
-        },
-        {
-          "id": "dev.shadowsoffire:apotheosis:7.4.8@jar",
-          "name": "Apotheosis",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 2803994,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/Apotheosis-1.20.1-7.4.8.jar",
-            "MD5": "db02304c99d20ff51d4c2427d33c9044"
-          }
-        },
-        {
-          "id": "dev.shadowsoffire:attributeslib:1.3.7@jar",
-          "name": "Apothic Attributes",
-          "type": "ForgeMod",
-          "artifact": {
-            "size": 227511,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/ApothicAttributes-1.20.1-1.3.7.jar",
-            "MD5": "d4f8d1945416d5150cd67d27469b5ce9"
           }
         },
         {
@@ -3672,105 +3652,6 @@
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/antiqueatlas-common.toml",
             "MD5": "df9e2bb95b67477d2c07ddb3876a5a65",
             "path": "config/antiqueatlas-common.toml"
-          }
-        },
-        {
-          "id": "adventure.cfg",
-          "name": "adventure.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 6506,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/adventure.cfg",
-            "MD5": "ac40614e501713425da96c41ac25cbc1",
-            "path": "config/apotheosis/adventure.cfg"
-          }
-        },
-        {
-          "id": "apotheosis.cfg",
-          "name": "apotheosis.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 1020,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/apotheosis.cfg",
-            "MD5": "f47f163b6536523a96ee94c5a88d55e4",
-            "path": "config/apotheosis/apotheosis.cfg"
-          }
-        },
-        {
-          "id": "ench.cfg",
-          "name": "ench.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 465,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/ench.cfg",
-            "MD5": "ea69c23ce79bc5c0c087055727dfb124",
-            "path": "config/apotheosis/ench.cfg"
-          }
-        },
-        {
-          "id": "enchantments.cfg",
-          "name": "enchantments.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 124747,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/enchantments.cfg",
-            "MD5": "469c95d41edf392aadf93d2bafb52289",
-            "path": "config/apotheosis/enchantments.cfg"
-          }
-        },
-        {
-          "id": "garden.cfg",
-          "name": "garden.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 708,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/garden.cfg",
-            "MD5": "b32902a86405ba7c17caa1845996ac8f",
-            "path": "config/apotheosis/garden.cfg"
-          }
-        },
-        {
-          "id": "names.cfg",
-          "name": "names.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 115554,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/names.cfg",
-            "MD5": "f3b1c24fdec4fffab314a68d4f5df88a",
-            "path": "config/apotheosis/names.cfg"
-          }
-        },
-        {
-          "id": "potion.cfg",
-          "name": "potion.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 815,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/potion.cfg",
-            "MD5": "44a123cc91a0e38c4d472e0b1634a9d5",
-            "path": "config/apotheosis/potion.cfg"
-          }
-        },
-        {
-          "id": "spawner.cfg",
-          "name": "spawner.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 1009,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/spawner.cfg",
-            "MD5": "58a1effbead46a3e1bf9946e25cba6ea",
-            "path": "config/apotheosis/spawner.cfg"
-          }
-        },
-        {
-          "id": "village.cfg",
-          "name": "village.cfg",
-          "type": "File",
-          "artifact": {
-            "size": 787,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/apotheosis/village.cfg",
-            "MD5": "efa4cda02e59465cded24beaa3d20f61",
-            "path": "config/apotheosis/village.cfg"
           }
         },
         {
@@ -8123,6 +8004,17 @@
     "resourcepacks/Quark Programmer Art.zip",
     "mods/guardvillagers-1.20.1-1.6.19.jar",
     "config/guardvillagers-client.toml",
-    "config/guardvillagers-common.toml"
+    "config/guardvillagers-common.toml",
+    "mods/Apotheosis-1.20.1-7.4.8.jar",
+    "mods/ApothicAttributes-1.20.1-1.3.7.jar",
+    "config/apotheosis/adventure.cfg",
+    "config/apotheosis/apotheosis.cfg",
+    "config/apotheosis/ench.cfg",
+    "config/apotheosis/enchantments.cfg",
+    "config/apotheosis/garden.cfg",
+    "config/apotheosis/names.cfg",
+    "config/apotheosis/potion.cfg",
+    "config/apotheosis/spawner.cfg",
+    "config/apotheosis/village.cfg"
   ]
 }
