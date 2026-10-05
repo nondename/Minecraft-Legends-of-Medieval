@@ -110,6 +110,86 @@ jobs:
           git add "$path"
           git commit -m "feat(lan): add LAN Server Properties 1.11.1"
 
+      - name: Restore pinned MineColonies stack
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          base='https://ldtteam.jfrog.io/ldtteam/modding'
+
+          download_mod() {
+            local path="$1"
+            local url="$2"
+            local modid="$3"
+
+            if [ -f "$path" ]; then
+              echo "$path is already committed"
+              return 0
+            fi
+
+            echo "Downloading $path"
+            curl --fail --location --retry 4 --retry-delay 2 \
+              "$url" \
+              --output "$path"
+
+            python3 - "$path" "$modid" <<'PY'
+          import sys
+          import zipfile
+
+          path, modid = sys.argv[1], sys.argv[2]
+          with zipfile.ZipFile(path) as jar:
+              bad = jar.testzip()
+              if bad is not None:
+                  raise SystemExit(f"corrupt JAR entry in {path}: {bad}")
+              try:
+                  mods_toml = jar.read("META-INF/mods.toml").decode("utf-8", "replace")
+              except KeyError as exc:
+                  raise SystemExit(f"{path} has no META-INF/mods.toml") from exc
+              if modid not in mods_toml:
+                  raise SystemExit(f"{path} does not contain expected mod id {modid}")
+          PY
+          }
+
+          download_mod \
+            'mods/minecolonies-1.20.1-1.1.1301.jar' \
+            "$base/com/ldtteam/minecolonies/1.20.1-1.1.1301/minecolonies-1.20.1-1.1.1301.jar" \
+            'minecolonies'
+
+          download_mod \
+            'mods/structurize-1.20.1-1.0.818.jar' \
+            "$base/com/ldtteam/structurize/1.20.1-1.0.818/structurize-1.20.1-1.0.818.jar" \
+            'structurize'
+
+          download_mod \
+            'mods/blockui-1.20.1-1.0.193.jar' \
+            "$base/com/ldtteam/blockui/1.20.1-1.0.193/blockui-1.20.1-1.0.193.jar" \
+            'blockui'
+
+          download_mod \
+            'mods/domum_ornamentum-1.20.1-1.0.296-universal.jar' \
+            "$base/com/ldtteam/domum_ornamentum/1.20.1-1.0.296/domum_ornamentum-1.20.1-1.0.296-universal.jar" \
+            'domum_ornamentum'
+
+          download_mod \
+            'mods/multipiston-1.20-1.2.43-RELEASE.jar' \
+            "$base/com/ldtteam/multi-piston/1.20-1.2.43-RELEASE/multi-piston-1.20-1.2.43-RELEASE.jar" \
+            'multipiston'
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            mods/minecolonies-1.20.1-1.1.1301.jar \
+            mods/structurize-1.20.1-1.0.818.jar \
+            mods/blockui-1.20.1-1.0.193.jar \
+            mods/domum_ornamentum-1.20.1-1.0.296-universal.jar \
+            mods/multipiston-1.20-1.2.43-RELEASE.jar
+
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(modpack): add MineColonies 1.20.1 stack"
+          else
+            echo "MineColonies stack is already committed"
+          fi
+
       - name: Rebuild distribution.json from committed Git blobs
         run: python3 tools/rebuild_distribution.py --write
 
