@@ -1,5 +1,5 @@
 {
-  "version": "1.0.21",
+  "version": "1.0.22",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -7461,127 +7461,6 @@
           }
         },
         {
-          "id": "backpacked-forge-1.20.1-3.0.9.jar.deactivation",
-          "name": "backpacked-forge-1.20.1-3.0.9.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 1183307,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/backpacked-forge-1.20.1-3.0.9.jar.deactivation",
-            "MD5": "05025cc9ccbef619916ed1911bd6f24e",
-            "path": "mods/backpacked-forge-1.20.1-3.0.9.jar.deactivation"
-          }
-        },
-        {
-          "id": "drippyloadingscreen_forge_3.1.5_MC_1.20.1.jar.deactivation",
-          "name": "drippyloadingscreen_forge_3.1.5_MC_1.20.1.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 281881,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/drippyloadingscreen_forge_3.1.5_MC_1.20.1.jar.deactivation",
-            "MD5": "9e697a6fc08c7241b870e9ed0b3f67d1",
-            "path": "mods/drippyloadingscreen_forge_3.1.5_MC_1.20.1.jar.deactivation"
-          }
-        },
-        {
-          "id": "epic-knights-1.20.1-forge-10.11.jar.deactivation",
-          "name": "epic-knights-1.20.1-forge-10.11.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 2913733,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/epic-knights-1.20.1-forge-10.11.jar.deactivation",
-            "MD5": "3d52d9849bbfd1fa8f721995bc696c92",
-            "path": "mods/epic-knights-1.20.1-forge-10.11.jar.deactivation"
-          }
-        },
-        {
-          "id": "fancymenu_forge_3.9.12_MC_1.20.1.jar.deactivation",
-          "name": "fancymenu_forge_3.9.12_MC_1.20.1.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 26181250,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/fancymenu_forge_3.9.12_MC_1.20.1.jar.deactivation",
-            "MD5": "1ec53b20259f65cad0b722e69d2f8e0f",
-            "path": "mods/fancymenu_forge_3.9.12_MC_1.20.1.jar.deactivation"
-          }
-        },
-        {
-          "id": "journeymap-forge-1.20.1-6.0.4.jar.deactivation",
-          "name": "journeymap-forge-1.20.1-6.0.4.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 4328630,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/journeymap-forge-1.20.1-6.0.4.jar.deactivation",
-            "MD5": "4dee66488a5952f958e9a94419705f86",
-            "path": "mods/journeymap-forge-1.20.1-6.0.4.jar.deactivation"
-          }
-        },
-        {
-          "id": "legendarysurvivaloverhaul-1.20.1-2.4.7.jar.deactivation",
-          "name": "legendarysurvivaloverhaul-1.20.1-2.4.7.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 3751172,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/legendarysurvivaloverhaul-1.20.1-2.4.7.jar.deactivation",
-            "MD5": "6e9c48ddfb897f79e1d2c558cdd31b3e",
-            "path": "mods/legendarysurvivaloverhaul-1.20.1-2.4.7.jar.deactivation"
-          }
-        },
-        {
-          "id": "legendarytabs-1.20.1-2.0.jar.deactivation",
-          "name": "legendarytabs-1.20.1-2.0.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 157549,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/legendarytabs-1.20.1-2.0.jar.deactivation",
-            "MD5": "9e0fe1d6129c5238b6f00c2802fe1f37",
-            "path": "mods/legendarytabs-1.20.1-2.0.jar.deactivation"
-          }
-        },
-        {
-          "id": "mcw-bridges-3.1.2-mc1.20.1forge.jar.deactivation",
-          "name": "mcw-bridges-3.1.2-mc1.20.1forge.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 693579,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/mcw-bridges-3.1.2-mc1.20.1forge.jar.deactivation",
-            "MD5": "78af63fce71f5739ed3595012880d502",
-            "path": "mods/mcw-bridges-3.1.2-mc1.20.1forge.jar.deactivation"
-          }
-        },
-        {
-          "id": "mowziesmobs-1.8.2.jar.deactivation",
-          "name": "mowziesmobs-1.8.2.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 36033850,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/mowziesmobs-1.8.2.jar.deactivation",
-            "MD5": "d650da053314d7384a537db1f316d11f",
-            "path": "mods/mowziesmobs-1.8.2.jar.deactivation"
-          }
-        },
-        {
-          "id": "soulslike-weaponry-1.4.10-1.20.1-forge.jar.deactivation",
-          "name": "soulslike-weaponry-1.4.10-1.20.1-forge.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 54758074,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/soulslike-weaponry-1.4.10-1.20.1-forge.jar.deactivation",
-            "MD5": "9c379b111a8c4572eeff5750b2ced947",
-            "path": "mods/soulslike-weaponry-1.4.10-1.20.1-forge.jar.deactivation"
-          }
-        },
-        {
-          "id": "soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation",
-          "name": "soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation",
-          "type": "File",
-          "artifact": {
-            "size": 54877532,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation",
-            "MD5": "ce672d030b5936617a5e5837a25c44cb",
-            "path": "mods/soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation"
-          }
-        },
-        {
           "id": "Better+Lanterns+v1.2(mc-1.20.1).zip",
           "name": "Better+Lanterns+v1.2(mc-1.20.1).zip",
           "type": "File",
@@ -8015,6 +7894,17 @@
     "config/apotheosis/names.cfg",
     "config/apotheosis/potion.cfg",
     "config/apotheosis/spawner.cfg",
-    "config/apotheosis/village.cfg"
+    "config/apotheosis/village.cfg",
+    "mods/backpacked-forge-1.20.1-3.0.9.jar.deactivation",
+    "mods/drippyloadingscreen_forge_3.1.5_MC_1.20.1.jar.deactivation",
+    "mods/epic-knights-1.20.1-forge-10.11.jar.deactivation",
+    "mods/fancymenu_forge_3.9.12_MC_1.20.1.jar.deactivation",
+    "mods/journeymap-forge-1.20.1-6.0.4.jar.deactivation",
+    "mods/legendarysurvivaloverhaul-1.20.1-2.4.7.jar.deactivation",
+    "mods/legendarytabs-1.20.1-2.0.jar.deactivation",
+    "mods/mcw-bridges-3.1.2-mc1.20.1forge.jar.deactivation",
+    "mods/mowziesmobs-1.8.2.jar.deactivation",
+    "mods/soulslike-weaponry-1.4.10-1.20.1-forge.jar.deactivation",
+    "mods/soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation"
   ]
 }
