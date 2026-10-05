@@ -172,7 +172,7 @@ jobs:
 
           download_mod \
             'mods/multipiston-1.20-1.2.43-RELEASE.jar' \
-            "$base/com/ldtteam/multi-piston/1.20-1.2.43-RELEASE/multi-piston-1.20-1.2.43-RELEASE.jar" \
+            'https://www.cursemaven.com/curse/maven/multi-piston-303278/5204918/multi-piston-303278-5204918.jar' \
             'multipiston'
 
           git config user.name "github-actions[bot]"
