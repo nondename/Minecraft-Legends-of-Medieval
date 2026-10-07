@@ -18,7 +18,7 @@
 	#   HARD - Temperature and Thirst can kill the player.
 	# Any other value will default to HARD.
 	#Allowed Values: PEACEFUL, EASY, NORMAL, HARD
-	"Temperature Difficulty Mode" = "HARD"
+	"Temperature Difficulty Mode" = "NORMAL"
 
 	[core.advanced]
 		# How often player temperature, thirst, body damage and health is regularly synced between the client and server, in ticks.
