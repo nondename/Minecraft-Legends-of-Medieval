@@ -1,0 +1,51 @@
+name: Install LoM Skin Loader 0.2.0
+
+on:
+  push:
+    branches: [ dev ]
+    paths:
+      - '.github/workflows/install-lom-skin-loader-0.2.0.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-lom-skin-loader-dev
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Download and verify LoM Skin Loader 0.2.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-ec70-8210-83d0-beb6f5ba0a9c/raw?se=2026-10-07T15%3A26%3A56Z&sp=r&sv=2026-02-06&sr=b&scid=1f61ab32-d8da-5716-81a1-09e4c7edecb6&skoid=76024c37-11e2-4c92-aa07-7e519fbe2d0f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-07T03%3A15%3A31Z&ske=2026-10-08T03%3A15%3A31Z&sks=b&skv=2026-02-06&sig=K%2By18LZ04Y2uHG5a/oMnpsX/smRdpMlOcPjVqJ57G%2Bg%3D'
+          out='mods/lom-skin-loader-0.2.0.jar'
+          curl --fail --location --retry 4 --retry-delay 2 "$url" --output "$out"
+          echo '5a501f2d64e26ff5cccc91b217d4c76ec89d88495ce5dde9ab3a6d2dde210b85  '"$out" | sha256sum -c -
+          unzip -t "$out" >/dev/null
+          unzip -p "$out" META-INF/mods.toml | grep -q 'lom_skin_loader'
+          rm -f mods/lom-skin-loader-0.1.3.jar
+
+      - name: Rebuild distribution manifest
+        run: python3 tools/rebuild_distribution.py --write
+
+      - name: Commit synchronized mod and manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/install-lom-skin-loader-0.2.0.yml
+          git add -A
+          git commit -m "feat(skins): sync launcher cosmetics between players"
+          git push origin HEAD:dev
