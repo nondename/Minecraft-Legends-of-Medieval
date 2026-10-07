@@ -1,5 +1,7 @@
 name: Sync LoM Map Atlases
 
+# Builds the pinned LoM fork and publishes it into the dev modpack.
+
 on:
   push:
     branches:
