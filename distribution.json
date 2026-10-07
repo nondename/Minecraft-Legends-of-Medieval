@@ -1,5 +1,5 @@
 {
-  "version": "1.0.28",
+  "version": "1.0.30",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -1725,9 +1725,9 @@
           "name": "Map Atlases",
           "type": "ForgeMod",
           "artifact": {
-            "size": 751751,
+            "size": 751854,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/map_atlases-1.20-6.0.20.jar",
-            "MD5": "5dfe766de06115398c39c74253d25f08"
+            "MD5": "12f65fced02df57bfe874dd92a3d0cff"
           }
         },
         {
