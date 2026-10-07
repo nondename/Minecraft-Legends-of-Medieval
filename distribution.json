@@ -1,5 +1,5 @@
 {
-  "version": "1.0.30",
+  "version": "1.0.31",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -6036,9 +6036,9 @@
           "name": "legendarysurvivaloverhaul-common.toml",
           "type": "File",
           "artifact": {
-            "size": 32274,
+            "size": 32276,
             "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/config/legendarysurvivaloverhaul/legendarysurvivaloverhaul-common.toml",
-            "MD5": "3666b7c51a8be4b2fc6dc801658c585c",
+            "MD5": "bff3547db5f9aa8d06e487480f90e92e",
             "path": "config/legendarysurvivaloverhaul/legendarysurvivaloverhaul-common.toml"
           }
         },
