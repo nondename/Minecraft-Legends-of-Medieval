@@ -1,5 +1,5 @@
 {
-  "version": "1.0.27",
+  "version": "1.0.28",
   "servers": [
     {
       "id": "Legends_of_Medieval-1.20.1",
@@ -7803,17 +7803,6 @@
           }
         },
         {
-          "id": "lom-skin-loader-0.1.3.jar",
-          "name": "lom-skin-loader-0.1.3.jar",
-          "type": "File",
-          "artifact": {
-            "size": 16977,
-            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lom-skin-loader-0.1.3.jar",
-            "MD5": "0a3e14315aa6c8db7c54f0175ba45dc9",
-            "path": "mods/lom-skin-loader-0.1.3.jar"
-          }
-        },
-        {
           "id": "lsp.json",
           "name": "lsp.json",
           "type": "File",
@@ -7922,6 +7911,17 @@
             "MD5": "d623965bd00f8d6563508021be1d7586",
             "path": "resourcepacks/LoM Russian Localization/pack.mcmeta"
           }
+        },
+        {
+          "id": "lom-skin-loader-0.2.0.jar",
+          "name": "lom-skin-loader-0.2.0.jar",
+          "type": "File",
+          "artifact": {
+            "size": 33083,
+            "url": "https://raw.githubusercontent.com/nondename/Minecraft-Legends-of-Medieval/dev/mods/lom-skin-loader-0.2.0.jar",
+            "MD5": "59b60e83c02304658ccc3dbd62a48fd7",
+            "path": "mods/lom-skin-loader-0.2.0.jar"
+          }
         }
       ]
     }
@@ -7961,6 +7961,7 @@
     "mods/mcw-bridges-3.1.2-mc1.20.1forge.jar.deactivation",
     "mods/mowziesmobs-1.8.2.jar.deactivation",
     "mods/soulslike-weaponry-1.4.10-1.20.1-forge.jar.deactivation",
-    "mods/soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation"
+    "mods/soulslike-weaponry-1.4.8-1.20.1-forge.jar.deactivation",
+    "mods/lom-skin-loader-0.1.3.jar"
   ]
 }
