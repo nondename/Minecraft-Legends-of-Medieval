@@ -25,7 +25,7 @@ import org.joml.Matrix4f;
 @Mod.EventBusSubscriber(modid = LoMMagic.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class PhantomWaystoneRenderer {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation("minecraft", "textures/block/stone_bricks.png");
+            new ResourceLocation("minecraft", "textures/block/crying_obsidian.png");
 
     private PhantomWaystoneRenderer() {}
 
@@ -59,6 +59,10 @@ public final class PhantomWaystoneRenderer {
             cuboid(vertex, stack, -.27f, .38f, -.27f, .27f, 1.91f, .27f, r, g, b, alpha);
             cuboid(vertex, stack, -.32f, .66f, -.32f, .32f, .73f, .32f, r, g, b, alpha);
             cuboid(vertex, stack, -.32f, 1.42f, -.32f, .32f, 1.50f, .32f, r, g, b, alpha);
+            // Luminous etched runes down the front face (a single violet spell variant).
+            cuboid(vertex, stack, -.055f, .85f, -.285f, .055f, 1.32f, -.275f, 220, 152, 255, .82f);
+            cuboid(vertex, stack, -.18f, 1.03f, -.286f, .18f, 1.13f, -.274f, 220, 152, 255, .82f);
+            cuboid(vertex, stack, -.14f, 1.57f, -.286f, .14f, 1.64f, -.274f, 220, 152, 255, .80f);
             cuboid(vertex, stack, -.34f, 1.83f, -.34f, .34f, 2.03f, .34f, r, g, b, alpha);
             tip(vertex, stack, .31f, 2.03f, 2.50f, r, g, b, alpha);
             stack.popPose();
