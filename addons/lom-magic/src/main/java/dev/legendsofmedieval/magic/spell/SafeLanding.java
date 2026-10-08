@@ -24,7 +24,7 @@ public final class SafeLanding {
             for (int degrees = 0; degrees < 360; degrees += 15) {
                 int x = death.getX() + (int)Math.round(Math.cos(Math.toRadians(degrees)) * radius);
                 int z = death.getZ() + (int)Math.round(Math.sin(Math.toRadians(degrees)) * radius);
-                int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                if (!level.hasChunk(x >> 4, z >> 4)) continue; // Never generate chunks while searching\n                int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
                 // Check surface and nearby caves (within a limited vertical distance).
                 for (int dy = -12; dy <= 12; dy++) {
                     int y = death.getY() + dy;
@@ -39,7 +39,7 @@ public final class SafeLanding {
         return Optional.empty();
     }
     private static boolean safe(ServerLevel level, BlockPos feet) {
-        if (!level.getWorldBorder().isWithinBounds(feet)) return false;
+        if (!level.hasChunk(feet.getX() >> 4, feet.getZ() >> 4)) return false;\n        if (!level.getWorldBorder().isWithinBounds(feet)) return false;
         if (!level.getBlockState(feet).getCollisionShape(level, feet).isEmpty()) return false;
         if (!level.getBlockState(feet.above()).getCollisionShape(level, feet.above()).isEmpty()) return false;
         if (!level.getFluidState(feet).isEmpty() || !level.getFluidState(feet.above()).isEmpty()) return false;
@@ -57,7 +57,7 @@ public final class SafeLanding {
 
     public static Optional<BlockPos> createEmergencyPlatform(ServerLevel level, BlockPos death) {
         // Strictly limited to a non-colliding 3x3 air volume above a lava sea.
-        int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING, death.getX(), death.getZ());
+        if (!level.hasChunk(death.getX() >> 4, death.getZ() >> 4)) return Optional.empty();\n        int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING, death.getX(), death.getZ());
         int feetY = Math.max(death.getY() + 3, top + 3);
         if (feetY > level.getMaxBuildHeight() - 3 || feetY <= level.getMinBuildHeight()+2)
             return Optional.empty();
@@ -67,7 +67,7 @@ public final class SafeLanding {
             return Optional.empty();
         for (int dx=-1; dx<=1; dx++) for (int dz=-1; dz<=1; dz++) {
             BlockPos floor = feet.offset(dx,-1,dz);
-            if (!level.getBlockState(floor).isAir() ||
+            if (!level.hasChunk(floor.getX() >> 4, floor.getZ() >> 4) ||\n                    !level.getWorldBorder().isWithinBounds(floor) ||\n                    !level.getBlockState(floor).isAir() ||
                     !level.getBlockState(floor.above()).isAir() ||
                     !level.getBlockState(floor.above(2)).isAir()) return Optional.empty();
         }
