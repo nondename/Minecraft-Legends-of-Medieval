@@ -83,7 +83,7 @@ public final class PhantomWaystoneManager {
         marker.setNoGravity(true);
         marker.setInvulnerable(true);
         marker.setInvisible(true);
-        marker.setCustomName(Component.translatable("spell.lommagic.phantom_waystone"));
+        marker.setCustomName(Component.literal("LoMPhantomWaystone:" + tier));
         marker.setCustomNameVisible(false);
         marker.getPersistentData().putBoolean("LoMPhantomWaystone", true);
         marker.getPersistentData().putUUID("LoMOwner", player.getUUID());
