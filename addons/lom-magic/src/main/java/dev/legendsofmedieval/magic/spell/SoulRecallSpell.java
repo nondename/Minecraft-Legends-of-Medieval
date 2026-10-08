@@ -47,6 +47,14 @@ public class SoulRecallSpell extends AbstractSpell {
     @Override public ResourceLocation getSpellResource() { return spellId; }
     @Override public DefaultConfig getDefaultConfig() { return config; }
     @Override public CastType getCastType() { return CastType.LONG; }
+    @Override public Optional<SoundEvent> getCastStartSound() { return Optional.of(SoundEvents.SCULK_CATALYST_BLOOM); }
+    @Override public void onServerCastTick(Level level, int spellLevel, LivingEntity caster, MagicData magicData) {
+        // Soft magical pulses throughout the five-second channel, not only at teleport time.
+        if (!level.isClientSide && caster.tickCount % 30 == 0) {
+            level.playSound(null, caster.getX(), caster.getY(), caster.getZ(),
+                    SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.65f, 0.65f + (caster.tickCount % 90) / 180f);
+        }
+    }
     @Override public Optional<SoundEvent> getCastFinishSound() { return Optional.of(SoundEvents.ENDERMAN_TELEPORT); }
 
     @Override
