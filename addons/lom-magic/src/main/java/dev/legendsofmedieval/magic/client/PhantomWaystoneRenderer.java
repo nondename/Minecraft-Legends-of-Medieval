@@ -90,7 +90,10 @@ public final class PhantomWaystoneRenderer {
                              int r,int g,int b,float a) {
         // Triangular fan rendered as a quad; for rectangular faces the fourth
         // corner is inferred from the other three corners.
-        float x3=x0+x2-x1, y3=y0+y2-y1, z3=z0+z2-z1;
+        boolean triangle = (x2 == 0 && z2 == 0 && y2 > y0 && x0 != x1 && z0 != z1);
+        float x3=triangle ? x2 : x0+x2-x1;
+        float y3=triangle ? y2 : y0+y2-y1;
+        float z3=triangle ? z2 : z0+z2-z1;
         Matrix4f pos=s.last().pose();
         Matrix3f normal=s.last().normal();
         float alpha=Math.max(0f,Math.min(1f,a));

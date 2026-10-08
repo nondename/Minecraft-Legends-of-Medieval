@@ -5,5 +5,6 @@
   "spell.lommagic.phantom_waystone.guide": "Summon a temporary waystone. I: Overworld; II: Overworld and Nether; III: all dimensions.",
   "message.lommagic.phantom_waystone.dimension": "This dimension is not available at the current spell level.",
   "message.lommagic.phantom_waystone.summoned": "Spectral anchor summoned for 90 seconds.",
-  "message.lommagic.phantom_waystone.unfinished": "Waystones destination selection is not yet implemented."
+  "message.lommagic.phantom_waystone.unfinished": "Waystones destination selection is not yet implemented.",
+  "message.lommagic.phantom_waystone.no_surface": "No suitable surface for summoning."
 }

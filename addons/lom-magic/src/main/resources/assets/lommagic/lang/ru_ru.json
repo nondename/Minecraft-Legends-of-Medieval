@@ -5,5 +5,6 @@
   "spell.lommagic.phantom_waystone.guide": "Призывает временный путевой камень. I: обычный мир; II: обычный мир и Незер; III: все измерения.",
   "message.lommagic.phantom_waystone.dimension": "Это измерение недоступно на текущем уровне заклинания.",
   "message.lommagic.phantom_waystone.summoned": "Призрачный обелиск призван на 90 секунд.",
-  "message.lommagic.phantom_waystone.unfinished": "Выбор путевых камней ещё не подключён: разработка."
+  "message.lommagic.phantom_waystone.unfinished": "Выбор путевых камней ещё не подключён: разработка.",
+  "message.lommagic.phantom_waystone.no_surface": "Нет подходящей поверхности для призыва."
 }

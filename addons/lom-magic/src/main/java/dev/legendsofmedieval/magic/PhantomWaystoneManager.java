@@ -1,6 +1,11 @@
 package dev.legendsofmedieval.magic;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.core.particles.DustParticleOptions;
 import org.joml.Vector3f;
 import net.blay09.mods.balm.api.Balm;
@@ -79,7 +84,12 @@ public final class PhantomWaystoneManager {
         Anchor old = ACTIVE.remove(player.getUUID());
         if (old != null) remove(old, player.server);
         ServerLevel level = player.serverLevel();
-        ArmorStand marker = new ArmorStand(level, player.getX(), player.getY(), player.getZ());
+        BlockPos spawn = findPlacement(player);
+        if (spawn == null) {
+            player.displayClientMessage(Component.translatable("message.lommagic.phantom_waystone.no_surface"), true);
+            return false;
+        }
+        ArmorStand marker = new ArmorStand(level, spawn.getX() + .5, spawn.getY(), spawn.getZ() + .5);
         marker.setNoGravity(true);
         marker.setInvulnerable(true);
         marker.setInvisible(true);
@@ -94,6 +104,37 @@ public final class PhantomWaystoneManager {
                 level.dimension().location(), level.getGameTime() + LIFETIME, tier));
         player.displayClientMessage(Component.translatable("message.lommagic.phantom_waystone.summoned"), true);
         return true;
+    }
+
+    private static BlockPos findPlacement(ServerPlayer player) {
+        ServerLevel level = player.serverLevel();
+        HitResult hit = player.pick(6.0, 0, false);
+        if (hit instanceof BlockHitResult block && hit.getType() == HitResult.Type.BLOCK) {
+            BlockPos clicked = block.getBlockPos().relative(block.getDirection());
+            if (canPlace(level, clicked) && clicked.distSqr(player.blockPosition()) > 3) return clicked;
+        }
+        Vec3 direction = player.getLookAngle();
+        Vec3 horizontal = new Vec3(direction.x, 0, direction.z);
+        if (horizontal.lengthSqr() < 0.02) horizontal = new Vec3(0, 0, 1);
+        horizontal = horizontal.normalize();
+        for (int distance = 4; distance <= 5; distance++) {
+            BlockPos center = BlockPos.containing(player.position().add(horizontal.scale(distance)));
+            for (int dy = 3; dy >= -5; dy--) {
+                BlockPos pos = center.offset(0,dy,0);
+                if (canPlace(level,pos)) return pos;
+            }
+        }
+        return null;
+    }
+
+    private static boolean canPlace(ServerLevel level, BlockPos pos) {
+        if (pos.getY() <= level.getMinBuildHeight() || pos.getY()+3 >= level.getMaxBuildHeight()) return false;
+        if (!level.hasChunkAt(pos) || !level.hasChunkAt(pos.below())) return false;
+        return level.getBlockState(pos.below()).isFaceSturdy(level,pos.below(),Direction.UP)
+                && level.getBlockState(pos).getCollisionShape(level,pos).isEmpty()
+                && level.getBlockState(pos.above()).getCollisionShape(level,pos.above()).isEmpty()
+                && level.getBlockState(pos.above(2)).getCollisionShape(level,pos.above(2)).isEmpty()
+                && level.getFluidState(pos).isEmpty();
     }
 
     private static boolean allowed(ServerLevel level, int tier) {
