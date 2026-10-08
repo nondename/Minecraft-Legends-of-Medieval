@@ -1,6 +1,8 @@
 package dev.legendsofmedieval.magic;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.DustParticleOptions;
+import org.joml.Vector3f;
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.menu.BalmMenuProvider;
 import net.blay09.mods.waystones.api.WaystoneTeleportEvent;
@@ -128,12 +130,44 @@ public final class PhantomWaystoneManager {
                 it.remove();
                 continue;
             }
-            if (level.getGameTime() % 5 == 0) {
-                var particle = anchor.tier == 1 ? ParticleTypes.SOUL_FIRE_FLAME
-                        : anchor.tier == 2 ? ParticleTypes.FLAME : ParticleTypes.PORTAL;
-                level.sendParticles(particle, entity.getX(), entity.getY() + 1.2, entity.getZ(),
-                        12, .45, .8, .45, .02);
+            if (level.getGameTime() % 3 == 0) {
+                renderSpectralOutline(level, entity.getX(), entity.getY(), entity.getZ(), anchor.tier);
             }
+        }
+    }
+
+    /**
+     * Three-dimensional, transparent particle silhouette until the final
+     * translucent Waystone mesh is available. Never places persistent blocks.
+     */
+    private static void renderSpectralOutline(ServerLevel level, double x, double y, double z, int tier) {
+        Vector3f color = tier == 1 ? new Vector3f(0.65f, 0.88f, 1.0f)
+                : tier == 2 ? new Vector3f(1.0f, 0.30f, 0.08f)
+                : new Vector3f(0.64f, 0.20f, 1.0f);
+        DustParticleOptions dust = new DustParticleOptions(color, 1.1f);
+        long frame = level.getGameTime();
+        for (int layer = 0; layer <= 12; layer++) {
+            double height = 0.15 + layer * 0.18;
+            double radius = layer < 2 ? 0.46 : layer > 10 ? 0.24 : 0.34;
+            for (int corner = 0; corner < 4; corner++) {
+                double angle = Math.PI * 0.5 * corner + Math.PI * 0.25;
+                double px = x + Math.cos(angle) * radius;
+                double pz = z + Math.sin(angle) * radius;
+                // Stagger emission to keep the beacon visible without flooding clients.
+                if ((layer + corner + frame / 3) % 3 != 0) continue;
+                level.sendParticles(dust, px, y + height, pz, 1, 0, 0, 0, 0);
+            }
+        }
+        double spin = (frame % 160) * Math.PI / 80.0;
+        for (int i = 0; i < 8; i++) {
+            double angle = spin + i * Math.PI / 4;
+            level.sendParticles(dust, x + Math.cos(angle) * 0.68, y + 0.08,
+                    z + Math.sin(angle) * 0.68, 1, 0, 0, 0, 0);
+        }
+        if (frame % 12 == 0) {
+            level.sendParticles(tier == 2 ? ParticleTypes.FLAME
+                            : tier == 3 ? ParticleTypes.PORTAL : ParticleTypes.SOUL,
+                    x, y + 1.2, z, 5, .34, .9, .34, .02);
         }
     }
 
