@@ -25,7 +25,7 @@ import org.joml.Matrix4f;
 @Mod.EventBusSubscriber(modid = LoMMagic.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class PhantomWaystoneRenderer {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation("minecraft", "textures/block/amethyst_block.png");
+            new ResourceLocation("minecraft", "textures/block/stone_bricks.png");
 
     private PhantomWaystoneRenderer() {}
 
@@ -53,10 +53,12 @@ public final class PhantomWaystoneRenderer {
             int r = tier == 1 ? 170 : tier == 2 ? 255 : 183;
             int g = tier == 1 ? 226 : tier == 2 ? 112 : 82;
             int b = tier == 1 ? 255 : tier == 2 ? 51 : 255;
-            float alpha = 0.52f + 0.08f * (float) Math.sin(time * 3);
+            float alpha = 0.46f + 0.07f * (float) Math.sin(time * 3);
             cuboid(vertex, stack, -.49f, 0f, -.49f, .49f, .24f, .49f, r, g, b, alpha);
             cuboid(vertex, stack, -.37f, .24f, -.37f, .37f, .38f, .37f, r, g, b, alpha);
             cuboid(vertex, stack, -.27f, .38f, -.27f, .27f, 1.91f, .27f, r, g, b, alpha);
+            cuboid(vertex, stack, -.32f, .66f, -.32f, .32f, .73f, .32f, r, g, b, alpha);
+            cuboid(vertex, stack, -.32f, 1.42f, -.32f, .32f, 1.50f, .32f, r, g, b, alpha);
             cuboid(vertex, stack, -.34f, 1.83f, -.34f, .34f, 2.03f, .34f, r, g, b, alpha);
             tip(vertex, stack, .31f, 2.03f, 2.50f, r, g, b, alpha);
             stack.popPose();
