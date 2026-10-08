@@ -22,5 +22,6 @@ public final class LoMMagic {
     public LoMMagic() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         SPELLS.register(modBus);
+        PhantomWaystoneManager.registerWaystonesHooks();
     }
 }
