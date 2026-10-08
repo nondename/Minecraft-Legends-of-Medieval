@@ -39,9 +39,12 @@ public final class PhantomWaystoneRenderer {
         MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
         VertexConsumer vertex = buffers.getBuffer(RenderType.entityTranslucent(TEXTURE));
         for (Entity entity : mc.level.entitiesForRendering()) {
-            if (!(entity instanceof ArmorStand anchor)
-                    || !anchor.getPersistentData().getBoolean("LoMPhantomWaystone")) continue;
-            int tier = anchor.getPersistentData().getInt("LoMTier");
+            if (!(entity instanceof ArmorStand anchor) || anchor.getCustomName() == null) continue;
+            String identifier = anchor.getCustomName().getString();
+            if (!identifier.startsWith("LoMPhantomWaystone:")) continue;
+            int tier;
+            try { tier = Integer.parseInt(identifier.substring("LoMPhantomWaystone:".length())); }
+            catch (NumberFormatException ignored) { continue; }
             if (tier < 1 || tier > 3) continue;
             stack.pushPose();
             stack.translate(anchor.getX() - cam.x, anchor.getY() - cam.y, anchor.getZ() - cam.z);
