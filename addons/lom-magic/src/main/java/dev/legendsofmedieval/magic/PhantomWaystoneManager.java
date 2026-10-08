@@ -202,7 +202,7 @@ public final class PhantomWaystoneManager {
         double spin = (frame % 160) * Math.PI / 80.0;
         for (int i = 0; i < 8; i++) {
             double angle = spin + i * Math.PI / 4;
-            level.sendParticles(dust, x + Math.cos(angle) * 0.68, y + 0.08,
+            if (i % 2 == 0) level.sendParticles(dust, x + Math.cos(angle) * 0.68, y + 0.08,
                     z + Math.sin(angle) * 0.68, 1, 0, 0, 0, 0);
         }
         if (frame % 12 == 0) {
