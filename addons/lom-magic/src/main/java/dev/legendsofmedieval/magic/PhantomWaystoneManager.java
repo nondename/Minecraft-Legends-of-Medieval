@@ -29,8 +29,8 @@ import java.util.UUID;
 /**
  * Development-only spectral anchor lifecycle.
  * Does not register a real Waystone and does not bypass Waystones permissions.
- * TODO: replace visual anchor with a spectral obelisk model and connect the
- * server-side interaction to Waystones destination selection and teleport API.
+ * TODO: replace invisible marker with a translucent spectral obelisk renderer.
+ * Waystones' native selection GUI is used; teleports are checked on the server.
  */
 @Mod.EventBusSubscriber(modid = LoMMagic.MOD_ID)
 public final class PhantomWaystoneManager {
@@ -46,7 +46,10 @@ public final class PhantomWaystoneManager {
         if (!(event.getContext().getEntity() instanceof ServerPlayer player)) return;
         Anchor anchor = OPEN_MENUS.get(player.getUUID());
         if (anchor == null) return;
+        ServerLevel source = player.serverLevel();
+        var marker = source.getEntity(anchor.entityId);
         if (!(player.containerMenu instanceof WaystoneSelectionMenu)
+                || marker == null || player.distanceToSqr(marker) > 64
                 || !ACTIVE.containsKey(anchor.owner)
                 || !ACTIVE.get(anchor.owner).equals(anchor)
                 || !player.serverLevel().dimension().location().equals(anchor.dimension)
@@ -84,7 +87,7 @@ public final class PhantomWaystoneManager {
         marker.getPersistentData().putUUID("LoMOwner", player.getUUID());
         marker.getPersistentData().putInt("LoMTier", tier);
         if (!level.addFreshEntity(marker)) return false;
-        OPEN_MENUS.remove(player.getUUID());
+        OPEN_MENUS.entrySet().removeIf(e -> e.getValue().owner.equals(player.getUUID()));
         ACTIVE.put(player.getUUID(), new Anchor(player.getUUID(), marker.getUUID(),
                 level.dimension().location(), level.getGameTime() + LIFETIME, tier));
         player.displayClientMessage(Component.translatable("message.lommagic.phantom_waystone.summoned"), true);
@@ -121,6 +124,7 @@ public final class PhantomWaystoneManager {
             if (level.getGameTime() >= anchor.expiresAt
                     || entity == null || level.getServer().getPlayerList().getPlayer(anchor.owner) == null) {
                 if (entity != null) entity.discard();
+                OPEN_MENUS.entrySet().removeIf(e -> e.getValue().equals(anchor));
                 it.remove();
                 continue;
             }
@@ -152,7 +156,8 @@ public final class PhantomWaystoneManager {
                 || !(event.getEntity() instanceof ServerPlayer player)) return;
         event.setCanceled(true);
         Anchor anchor = ACTIVE.values().stream().filter(a -> a.entityId.equals(marker.getUUID())).findFirst().orElse(null);
-        if (anchor == null || player.distanceToSqr(marker) > 64) return;
+        if (anchor == null || player.distanceToSqr(marker) > 64
+                || player.serverLevel().getGameTime() >= anchor.expiresAt) return;
         if (!allowed(player.serverLevel(), anchor.tier)) return;
         OPEN_MENUS.put(player.getUUID(), anchor);
         Balm.getNetworking().openGui(player, WAYSTONE_MENU);
