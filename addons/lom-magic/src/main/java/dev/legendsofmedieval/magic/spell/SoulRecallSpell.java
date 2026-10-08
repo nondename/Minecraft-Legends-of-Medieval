@@ -47,12 +47,22 @@ public class SoulRecallSpell extends AbstractSpell {
     @Override public ResourceLocation getSpellResource() { return spellId; }
     @Override public DefaultConfig getDefaultConfig() { return config; }
     @Override public CastType getCastType() { return CastType.LONG; }
-    @Override public Optional<SoundEvent> getCastStartSound() { return Optional.of(SoundEvents.SCULK_CATALYST_BLOOM); }
-    @Override public void onServerCastTick(Level level, int spellLevel, LivingEntity caster, MagicData magicData) {
-        // Soft magical pulses throughout the five-second channel, not only at teleport time.
-        if (!level.isClientSide && caster.tickCount % 30 == 0) {
+    // Use server-broadcast sound packets so the caster and nearby players hear the channel.
+    @Override
+    public void onServerPreCast(Level level, int spellLevel, LivingEntity caster, MagicData magicData) {
+        if (!level.isClientSide) {
             level.playSound(null, caster.getX(), caster.getY(), caster.getZ(),
-                    SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.65f, 0.65f + (caster.tickCount % 90) / 180f);
+                    SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0f, 0.7f);
+        }
+    }
+
+    @Override
+    public void onServerCastTick(Level level, int spellLevel, LivingEntity caster, MagicData magicData) {
+        if (!level.isClientSide && caster.tickCount % 16 == 0) {
+            level.playSound(null, caster.getX(), caster.getY(), caster.getZ(),
+                    SoundEvents.BEACON_AMBIENT, SoundSource.PLAYERS, 0.9f, 0.8f);
+            level.playSound(null, caster.getX(), caster.getY(), caster.getZ(),
+                    SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.9f, 0.75f + (caster.tickCount % 80) / 150f);
         }
     }
     @Override public Optional<SoundEvent> getCastFinishSound() { return Optional.of(SoundEvents.ENDERMAN_TELEPORT); }
