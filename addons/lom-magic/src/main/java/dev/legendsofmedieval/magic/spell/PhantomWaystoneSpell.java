@@ -17,7 +17,7 @@ public class PhantomWaystoneSpell extends AbstractSpell {
     private final DefaultConfig config = new DefaultConfig()
             .setMinRarity(SpellRarity.EPIC)
             .setSchoolResource(SchoolRegistry.ENDER_RESOURCE)
-            .setMaxLevel(3)
+            .setMaxLevel(1)
             .setCooldownSeconds(300)
             .build();
 

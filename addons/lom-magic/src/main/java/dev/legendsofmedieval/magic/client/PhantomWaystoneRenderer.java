@@ -50,9 +50,9 @@ public final class PhantomWaystoneRenderer {
             stack.translate(anchor.getX() - cam.x, anchor.getY() - cam.y, anchor.getZ() - cam.z);
             float time = (mc.level.getGameTime() + event.getPartialTick()) / 20.0f;
             stack.translate(0, 0.045 * Math.sin(time * 2), 0);
-            int r = tier == 1 ? 170 : tier == 2 ? 255 : 183;
-            int g = tier == 1 ? 226 : tier == 2 ? 112 : 82;
-            int b = tier == 1 ? 255 : tier == 2 ? 51 : 255;
+            int r = 183;
+            int g = 82;
+            int b = 255;
             float alpha = 0.46f + 0.07f * (float) Math.sin(time * 3);
             cuboid(vertex, stack, -.49f, 0f, -.49f, .49f, .24f, .49f, r, g, b, alpha);
             cuboid(vertex, stack, -.37f, .24f, -.37f, .37f, .38f, .37f, r, g, b, alpha);

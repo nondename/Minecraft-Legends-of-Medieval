@@ -11,6 +11,8 @@ import org.joml.Vector3f;
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.menu.BalmMenuProvider;
 import net.blay09.mods.waystones.api.WaystoneTeleportEvent;
+import net.blay09.mods.waystones.api.WaystonesAPI;
+import net.blay09.mods.waystones.api.IWaystone;
 import net.blay09.mods.waystones.core.WarpMode;
 import net.blay09.mods.waystones.menu.WaystoneSelectionMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -67,6 +69,12 @@ public final class PhantomWaystoneManager {
             OPEN_MENUS.remove(player.getUUID());
             return;
         }
+        IWaystone target = event.getContext().getTargetWaystone();
+        if (!WaystonesAPI.isWaystoneActivated(player, target) && !target.isGlobal()) {
+            event.setCanceled(true);
+            OPEN_MENUS.remove(player.getUUID());
+            return;
+        }
         event.setXpCost(0);
         event.setCooldown(0);
         OPEN_MENUS.remove(player.getUUID());
@@ -77,7 +85,7 @@ public final class PhantomWaystoneManager {
     private PhantomWaystoneManager() {}
 
     public static boolean summon(ServerPlayer player, int tier) {
-        if (tier < 1 || tier > 3 || !allowed(player.serverLevel(), tier)) {
+        if (tier != 1) {
             player.displayClientMessage(Component.translatable("message.lommagic.phantom_waystone.dimension"), true);
             return false;
         }
@@ -93,15 +101,15 @@ public final class PhantomWaystoneManager {
         marker.setNoGravity(true);
         marker.setInvulnerable(true);
         marker.setInvisible(true);
-        marker.setCustomName(Component.literal("LoMPhantomWaystone:" + tier));
+        marker.setCustomName(Component.literal("LoMPhantomWaystone:3"));
         marker.setCustomNameVisible(false);
         marker.getPersistentData().putBoolean("LoMPhantomWaystone", true);
         marker.getPersistentData().putUUID("LoMOwner", player.getUUID());
-        marker.getPersistentData().putInt("LoMTier", tier);
+        marker.getPersistentData().putInt("LoMTier", 3);
         if (!level.addFreshEntity(marker)) return false;
         OPEN_MENUS.entrySet().removeIf(e -> e.getValue().owner.equals(player.getUUID()));
         ACTIVE.put(player.getUUID(), new Anchor(player.getUUID(), marker.getUUID(),
-                level.dimension().location(), level.getGameTime() + LIFETIME, tier));
+                level.dimension().location(), level.getGameTime() + LIFETIME, 3));
         player.displayClientMessage(Component.translatable("message.lommagic.phantom_waystone.summoned"), true);
         return true;
     }
@@ -139,8 +147,7 @@ public final class PhantomWaystoneManager {
 
     private static boolean allowed(ServerLevel level, int tier) {
         ResourceLocation id = level.dimension().location();
-        return tier == 3 || id.equals(Level.OVERWORLD.location())
-                || (tier >= 2 && id.equals(Level.NETHER.location()));
+        return true;
     }
 
     private static void remove(Anchor anchor, net.minecraft.server.MinecraftServer server) {
@@ -182,9 +189,7 @@ public final class PhantomWaystoneManager {
      * translucent Waystone mesh is available. Never places persistent blocks.
      */
     private static void renderSpectralOutline(ServerLevel level, double x, double y, double z, int tier) {
-        Vector3f color = tier == 1 ? new Vector3f(0.65f, 0.88f, 1.0f)
-                : tier == 2 ? new Vector3f(1.0f, 0.30f, 0.08f)
-                : new Vector3f(0.64f, 0.20f, 1.0f);
+        Vector3f color = new Vector3f(0.64f, 0.20f, 1.0f);
         DustParticleOptions dust = new DustParticleOptions(color, 1.1f);
         long frame = level.getGameTime();
         for (int layer = 0; layer <= 12; layer++) {
@@ -217,10 +222,10 @@ public final class PhantomWaystoneManager {
             return Component.translatable("spell.lommagic.phantom_waystone");
         }
         @Override public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-            return WaystoneSelectionMenu.createWaystoneSelection(id, player, WarpMode.WARP_STONE, null);
+            return WaystoneSelectionMenu.createWaystoneSelection(id, player, WarpMode.CUSTOM, null);
         }
         @Override public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
-            buf.writeByte(WarpMode.WARP_STONE.ordinal());
+            buf.writeByte(WarpMode.CUSTOM.ordinal());
         }
     };
 
