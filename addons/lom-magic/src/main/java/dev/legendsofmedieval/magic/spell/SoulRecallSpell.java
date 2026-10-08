@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -79,10 +80,16 @@ public class SoulRecallSpell extends AbstractSpell {
             return;
         }
         BlockPos arrival = destination.get();
+        // Play at the departure position while the client is still tracking that level.
+        player.serverLevel().playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 0.75f);
         if (player.isPassenger()) player.stopRiding();
         player.teleportTo(targetLevel, arrival.getX() + .5, arrival.getY(),
                 arrival.getZ() + .5, player.getYRot(), player.getXRot());
         player.resetFallDistance();
+        // Also play at the destination after a possible dimension change.
+        targetLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.15f);
         if (platform) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 4, false, false));
         }
