@@ -225,11 +225,24 @@ public final class PhantomWaystoneManager {
     };
 
     @SubscribeEvent
+    public static void interactAt(PlayerInteractEvent.EntityInteractSpecific event) {
+        if (event.getTarget() instanceof ArmorStand stand
+                && stand.getPersistentData().getBoolean("LoMPhantomWaystone")) {
+            event.setCanceled(true);
+            if (event.getEntity() instanceof ServerPlayer player) open(player, stand);
+        }
+    }
+
+    @SubscribeEvent
     public static void interact(PlayerInteractEvent.EntityInteract event) {
-        if (!(event.getTarget() instanceof ArmorStand marker)
-                || !marker.getPersistentData().getBoolean("LoMPhantomWaystone")
-                || !(event.getEntity() instanceof ServerPlayer player)) return;
-        event.setCanceled(true);
+        if (event.getTarget() instanceof ArmorStand stand
+                && stand.getPersistentData().getBoolean("LoMPhantomWaystone")) {
+            event.setCanceled(true);
+            if (event.getEntity() instanceof ServerPlayer player) open(player, stand);
+        }
+    }
+
+    private static void open(ServerPlayer player, ArmorStand marker) {
         Anchor anchor = ACTIVE.values().stream().filter(a -> a.entityId.equals(marker.getUUID())).findFirst().orElse(null);
         if (anchor == null || player.distanceToSqr(marker) > 64
                 || player.serverLevel().getGameTime() >= anchor.expiresAt) return;
